@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1075731264473",
+    "project_id": "spartanrides-172507"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075731264473:android:fa2d7f58dcbd2704",
+        "android_client_info": {
+          "package_name": "com.android.spartanrides"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075731264473-qrs4khpsufjmha51sc2l7757aprjmf02.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.spartanrides",
+            "certificate_hash": "93f9f578cf7a81455a8ab530c9d77b1c4f38a4bd"
+          }
+        },
+        {
+          "client_id": "1075731264473-vt2tvgthfhqqc9ntbn40d062v6m1eon0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBewD4SX6nJxutqgCot2CBu96liq5_27Mc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

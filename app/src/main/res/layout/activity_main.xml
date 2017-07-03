@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.spartanrides.MainActivity">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="495dp"
+        android:src="@drawable/spartanlogo"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription=""
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/signinButton"
+        android:layout_width="402dp"
+        android:layout_height="51dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#FFC107"
+        android:fontFamily="sans-serif"
+        android:text="SIGNIN SPARTAN"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#0D47A1"
+        android:textColorHighlight="#64B5F6"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="-9dp"
+        tools:layout_editor_absoluteY="458dp" />
+
+</android.support.constraint.ConstraintLayout>
