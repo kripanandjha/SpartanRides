@@ -39,8 +39,8 @@ public class MyApplication extends Application {
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        Intent i = new Intent(Main2Activity.this, MainActivity.class);
-                        startActivity(i);
+                        //Intent i = new Intent(Main2Activity.this, MainActivity.class);
+                        //startActivity(i);
                     }
                 }
         );

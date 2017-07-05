@@ -51,7 +51,7 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+  /*
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -59,7 +59,7 @@ public class Main2Activity extends AppCompatActivity {
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         googleApiClient.connect();
-
+*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -129,11 +129,7 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-            //View rootView = inflater.inflate(R.layout.activity_chat, container, false);
-
-            // TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-
+            View rootView = inflater.inflate(R.layout.activity_chat, container, false);
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER))
             {
@@ -152,13 +148,23 @@ public class Main2Activity extends AppCompatActivity {
                     TextView email = (TextView)rootView.findViewById(R.id.emailid);
                     Button signout = (Button)rootView.findViewById(R.id.signoutButton);
 
+                    /*
                     signout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            SignOut();
+                            //SignOut();
                         }
                     });
+                    */
                     name.setText("Name: "+" Kripanand");
+                    email.setText("EMAIL: "+" kripanand.jha@sjsu.edu");
+                    break;
+                }
+                case 4:
+                {
+                    rootView = inflater.inflate(R.layout.activity_help, container, false);
+                    break;
+
                 }
             }
             return rootView;

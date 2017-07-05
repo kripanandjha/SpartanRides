@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
 
             GoogleSignInAccount acct = result.getSignInAccount();
-            if (acct.getEmail().indexOf("@sjsu.edu") != -1) {
+            //if (acct.getEmail().indexOf("@sjsu.edu") != -1)
+            {
                 googleApiClient.connect();
                 // update UI
                //Intent i = new Intent(MainActivity.this,user_info.class);
@@ -109,13 +110,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                i.putExtra(PROFILE_IMAGE_URL,acct.getPhotoUrl());
                startActivity(i);
             }
-
+/*
             else
             {
                 //signed in with email which is not sjsu domain
                 SignOut();
 
             }
+            */
         }
         else
         {
