@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1075731264473",
-    "project_id": "spartanrides-172507"
+    "project_number": "22792258416",
+    "project_id": "spartanride-173019"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1075731264473:android:fa2d7f58dcbd2704",
+        "mobilesdk_app_id": "1:22792258416:android:fa2d7f58dcbd2704",
         "android_client_info": {
           "package_name": "com.android.spartanrides"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1075731264473-qrs4khpsufjmha51sc2l7757aprjmf02.apps.googleusercontent.com",
+          "client_id": "22792258416-7cghumt83seg2l730fk25racm5qn0u5e.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "22792258416-4st854ip1rir3rhfsknovf744hf2meqd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.android.spartanrides",
-            "certificate_hash": "93f9f578cf7a81455a8ab530c9d77b1c4f38a4bd"
+            "certificate_hash": "5b076871c7f0253ff9173145f3245b87426b8052"
           }
-        },
-        {
-          "client_id": "1075731264473-vt2tvgthfhqqc9ntbn40d062v6m1eon0.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBewD4SX6nJxutqgCot2CBu96liq5_27Mc"
+          "current_key": "AIzaSyC0set0U_QLx58RVbqPZ356u3glRCYdp3Q"
         }
       ],
       "services": {
