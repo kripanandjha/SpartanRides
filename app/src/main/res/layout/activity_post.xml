@@ -39,21 +39,21 @@
             android:text="From" />
 
         <EditText
-            android:id="@+id/editText22"
+            android:id="@+id/post_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
             android:ems="10"
             android:hint="Provide Source"
-            android:layout_marginRight="50dp"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText23"
+            android:id="@+id/post_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
             android:ems="10"
             android:hint="Specify Date"
-            android:layout_marginRight="50dp"
             android:inputType="date" />
     </LinearLayout>
 
@@ -73,21 +73,21 @@
             android:text="To" />
 
         <EditText
-            android:id="@+id/editText24"
+            android:id="@+id/post_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
             android:ems="10"
             android:hint="Procide Destination"
-            android:layout_marginLeft="70dp"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText25"
+            android:id="@+id/post_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
             android:ems="10"
             android:hint="Specify Time"
-            android:layout_marginLeft="70dp"
             android:inputType="time" />
 
     </LinearLayout>
@@ -98,12 +98,13 @@
         android:text="Search"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentStart="true"
-        android:id="@+id/button2" />
+        android:id="@+id/submit_post"
+        android:onClick="onClick"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/button2" />
+        android:layout_below="@+id/submit_post" />
 
 </RelativeLayout>

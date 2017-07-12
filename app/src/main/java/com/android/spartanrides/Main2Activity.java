@@ -1,10 +1,6 @@
 package com.android.spartanrides;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,11 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -78,6 +73,7 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ride);
         tabLayout.getTabAt(2).setIcon(R.drawable.prf);
         tabLayout.getTabAt(3).setIcon(R.drawable.help);
+
     }
         @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,7 +123,7 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_chat, container, false);
 
@@ -138,7 +134,34 @@ public class Main2Activity extends AppCompatActivity {
                     break;
                 }
                 case 2: {
+                    /*
+                    Post data acepting User Inputs
+                    */
                     rootView = inflater.inflate(R.layout.activity_post, container, false);
+                    final spartan_post sp = new spartan_post();
+                    Button button= rootView.findViewById(R.id.submit_post);
+
+                    final View finalRootView = rootView;
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view)
+                        {
+                            // Do not use getApplicationContext(), this is an activity
+                            sp.setDestVal(((TextView) finalRootView.findViewById(R.id.post_destination)).getText().toString());
+                            sp.setSourceVal(((TextView) finalRootView.findViewById(R.id.post_source)).getText().toString());
+                            sp.setDateVal(((TextView) finalRootView.findViewById(R.id.post_date)).getText().toString());
+                            sp.setTimeVal(((TextView) finalRootView.findViewById(R.id.post_time)).getText().toString());
+                            try {
+                                JSONObject jsonObject = sp.convertToJSON();
+                                JSONActivity jsonActivity = new JSONActivity();
+                                jsonActivity.JSONTransmitter(jsonObject);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
                     break;
                 }
                 case 3:
