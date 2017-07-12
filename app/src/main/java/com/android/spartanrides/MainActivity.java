@@ -44,16 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mStatusTextView = (TextView) findViewById(R.id.status);
-        //SignIn = (SignInButton)findViewById(R.id.signinButton);
         findViewById(R.id.signinButton).setOnClickListener(this);
-        //SignIn.setOnClickListener(this);
-        //findViewById(R.id.sign_out_button).setOnClickListener(this);
-
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
-
-
     }
 
     @Override
