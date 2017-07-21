@@ -6,98 +6,137 @@
     android:layout_height="match_parent"
     tools:context="com.android.spartanrides.Main2Activity$PlaceholderFragment">
 
-    <ImageView
+    <!--Text View for Source-->
+
+    <EditText
+        android:id="@+id/post_source"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/spartanlogo"
-        android:scaleType="centerCrop"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="9dp"
+        android:maxLines="1"
+        android:background="@drawable/write_text"
+        android:textColorHint="#a9a9a9"
+        android:hint="@string/source"
+        android:drawableLeft="@mipmap/ic_search_black_18dp"
+        android:drawablePadding="9dp"
+        android:textColor="@android:color/primary_text_light" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/cross_post"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_alignParentRight="true"
-        android:text="Switch">
+        android:layout_marginTop="26dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_clear_black_18dp"/>
 
-    </Switch>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/post_source"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--Text View for Destination-->
+    <EditText
+        android:id="@+id/post_destination"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="9dp"
+        android:maxLines="1"
+        android:layout_below="@+id/post_source"
+        android:background="@drawable/write_text"
+        android:textColorHint="#a9a9a9"
+        android:hint="Provide Destination"
+        android:drawableLeft="@mipmap/ic_search_black_18dp"
+        android:drawablePadding="9dp"
+        android:textColor="@android:color/primary_text_light" />
+
+    <ImageView
+        android:id="@+id/cross_dest"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_clear_black_18dp"/>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout"
-        android:layout_below="@+id/switch1"
-        android:layout_alignParentStart="true">
+    <!--Text View for date-->
+    <EditText
+        android:id="@+id/post_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="9dp"
+        android:layout_below="@+id/post_destination"
+        android:maxLines="1"
+        android:background="@drawable/write_text"
+        android:textColorHint="#a9a9a9"
+        android:inputType="datetime"
+        android:hint="Provide Date"
+        android:drawableLeft="@mipmap/ic_search_black_18dp"
+        android:drawablePadding="9dp"
+        android:textColor="@android:color/primary_text_light" />
 
+    <ImageView
+        android:id="@+id/cross_date"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_clear_black_18dp"/>
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:text="From" />
+    <!--Text View for Time-->
+    <EditText
+        android:id="@+id/post_time"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="9dp"
+        android:layout_below="@+id/post_date"
+        android:maxLines="1"
+        android:background="@drawable/write_text"
+        android:textColorHint="#a9a9a9"
+        android:inputType="datetime"
+        android:hint="Provide Time"
+        android:drawableLeft="@mipmap/ic_search_black_18dp"
+        android:drawablePadding="9dp"
+        android:textColor="@android:color/primary_text_light" />
 
-        <EditText
-            android:id="@+id/post_source"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:ems="10"
-            android:hint="Provide Source"
-            android:inputType="textPersonName" />
+    <ImageView
+        android:id="@+id/cross_time"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="210dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_clear_black_18dp"/>
 
-        <EditText
-            android:id="@+id/post_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:ems="10"
-            android:hint="Specify Date"
-            android:inputType="date" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout2"
-        android:layout_below="@+id/switch1"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:text="To" />
-
-        <EditText
-            android:id="@+id/post_destination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:ems="10"
-            android:hint="Procide Destination"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/post_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:ems="10"
-            android:hint="Specify Time"
-            android:inputType="time" />
-
-    </LinearLayout>
-
+    <!--Button for Submission-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:layout_below="@+id/linearLayout"
+        android:text="Post"
+        android:layout_below="@+id/post_time"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:id="@+id/submit_post"
         android:onClick="onClick"/>
 
@@ -105,6 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/submit_post" />
 
 </RelativeLayout>

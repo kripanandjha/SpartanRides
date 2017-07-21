@@ -1,5 +1,6 @@
 package com.android.spartanrides;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,12 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import jp.wasabeef.blurry.Blurry;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -44,6 +48,7 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
   /*
@@ -73,7 +78,6 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ride);
         tabLayout.getTabAt(2).setIcon(R.drawable.prf);
         tabLayout.getTabAt(3).setIcon(R.drawable.help);
-
     }
         @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,8 +183,6 @@ public class Main2Activity extends AppCompatActivity {
                         }
                     });
                     */
-                    name.setText("Name: "+" Kripanand");
-                    email.setText("EMAIL: "+" kripanand.jha@sjsu.edu");
                     break;
                 }
                 case 4:
