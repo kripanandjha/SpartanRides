@@ -1,8 +1,19 @@
 package com.android.spartanrides;
 
 /**
- * Created by razor on 12/7/15.
+ * Created by venka on 07/20/17.
+ * Source - https://github.com/doomtrooper/GoogleAutoCompleteWithRecyclerView
  */
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLngBounds;
+
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +26,6 @@ import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.AutocompletePrediction;
-import com.google.android.gms.location.places.AutocompletePredictionBuffer;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -209,4 +211,6 @@ public class PlacesAutoCompleteAdapter
             return description.toString();
         }
     }
+
+
 }
