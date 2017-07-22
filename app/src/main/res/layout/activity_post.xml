@@ -70,6 +70,14 @@
         android:layout_marginRight="20dp"
         android:src="@mipmap/ic_clear_black_18dp"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:scrollbars="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/post_destination"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <!--Text View for date-->
     <EditText

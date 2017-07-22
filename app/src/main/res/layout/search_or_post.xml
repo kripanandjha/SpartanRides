@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.spartanrides.Main2Activity$PlaceholderFragment">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You can either Post or Search for carpool"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
+
+    <!--Button for Post-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:id="@+id/post_redirect"
+        android:onClick="doPost"
+        android:layout_alignTop="@+id/search_redirect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="97dp" />
+
+    <!--Button for Search-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/search_redirect"
+        android:onClick="doSearch"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="189dp" />
+
+
+
+</RelativeLayout>
