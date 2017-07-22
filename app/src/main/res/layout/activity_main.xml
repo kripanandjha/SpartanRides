@@ -7,6 +7,7 @@
     tools:context="com.android.spartanrides.MainActivity">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="0dp"
         android:layout_height="495dp"
         android:src="@drawable/spartanlogo"

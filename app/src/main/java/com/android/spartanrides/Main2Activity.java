@@ -1,5 +1,7 @@
 package com.android.spartanrides;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,12 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import jp.wasabeef.blurry.Blurry;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -44,6 +49,7 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
   /*
@@ -73,9 +79,8 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ride);
         tabLayout.getTabAt(2).setIcon(R.drawable.prf);
         tabLayout.getTabAt(3).setIcon(R.drawable.help);
-
     }
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main2, menu);
@@ -134,33 +139,31 @@ public class Main2Activity extends AppCompatActivity {
                     break;
                 }
                 case 2: {
-                    /*
+                     /*
                     Post data acepting User Inputs
                     */
-                    rootView = inflater.inflate(R.layout.activity_post, container, false);
-                    final spartan_post sp = new spartan_post();
-                    Button button= rootView.findViewById(R.id.submit_post);
-
-                    final View finalRootView = rootView;
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            // Do not use getApplicationContext(), this is an activity
-                            sp.setDestVal(((TextView) finalRootView.findViewById(R.id.post_destination)).getText().toString());
-                            sp.setSourceVal(((TextView) finalRootView.findViewById(R.id.post_source)).getText().toString());
-                            sp.setDateVal(((TextView) finalRootView.findViewById(R.id.post_date)).getText().toString());
-                            sp.setTimeVal(((TextView) finalRootView.findViewById(R.id.post_time)).getText().toString());
-                            try {
-                                JSONObject jsonObject = sp.convertToJSON();
-                                JSONActivity jsonActivity = new JSONActivity();
-                                jsonActivity.JSONTransmitter(jsonObject);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                    rootView = inflater.inflate(R.layout.search_or_post, container, false);
+//                    Button postButton= rootView.findViewById(R.id.post_redirect);
+//
+//                    postButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view)
+//                        {
+//                            // Do not use getApplicationContext(), this is an activity
+//                            Intent i = new Intent(getContext(), spartan_post.class);
+//                            startActivity(i);
+//                        }
+//
+//                    });
+//                    Button searchButton= rootView.findViewById(R.id.search_redirect);
+//                    searchButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view)
+//                        {
+//                            // Do not use getApplicationContext(), this is an activity
+//                        }
+//
+//                    });
 
                     break;
                 }
@@ -179,8 +182,6 @@ public class Main2Activity extends AppCompatActivity {
                         }
                     });
                     */
-                    name.setText("Name: "+" Kripanand");
-                    email.setText("EMAIL: "+" kripanand.jha@sjsu.edu");
                     break;
                 }
                 case 4:
@@ -217,4 +218,17 @@ public class Main2Activity extends AppCompatActivity {
             return 4;
         }
     }
+
+    public void doPost(View view)
+    {
+        Intent intent = new Intent(this, spartan_post.class);
+        startActivity(intent);
+    }
+
+    public void doSearch(View view)
+    {
+        //Intent intent = new Intent(this, spartan_post.class);
+        //startActivity(intent);
+    }
+
 }
