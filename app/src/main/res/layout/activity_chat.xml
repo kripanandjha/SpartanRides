@@ -8,9 +8,10 @@
 
     <ImageView
         android:layout_width="match_parent"
+        android:id="@+id/chatLogo"
         android:layout_height="match_parent"
-        android:src="@drawable/a"
-        android:scaleType="centerInside"/>
+        android:src="@drawable/spartanlogo"
+        android:scaleType="centerCrop"/>
 
 
     <TextView

@@ -37,6 +37,7 @@
         <activity android:name=".spartan_chat" />
         <activity android:name=".spartan_post" />
         <activity android:name=".SearchOrPost" />
+        <activity android:name=".ThankYouPost" />
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"

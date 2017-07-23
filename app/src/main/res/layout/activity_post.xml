@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.android.spartanrides.Main2Activity$PlaceholderFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/postLogo"
+        android:layout_height="match_parent"
+        android:src="@drawable/spartanlogo"
+        android:scaleType="centerCrop"/>
+
     <!--Text View for Source-->
 
     <EditText
@@ -23,7 +30,8 @@
         android:hint="@string/source"
         android:drawableLeft="@mipmap/ic_search_black_18dp"
         android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light" />
+        android:textColor="@android:color/primary_text_light"
+        android:alpha="0.75"/>
 
     <ImageView
         android:id="@+id/cross_post"
@@ -59,7 +67,8 @@
         android:hint="Provide Destination"
         android:drawableLeft="@mipmap/ic_search_black_18dp"
         android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light" />
+        android:textColor="@android:color/primary_text_light"
+        android:alpha="0.75"/>
 
     <ImageView
         android:id="@+id/cross_dest"
@@ -78,28 +87,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/post_destination"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textLayout">
 
     <!--Text View for date-->
-    <EditText
-        android:id="@+id/post_date"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="9dp"
-        android:layout_below="@+id/post_destination"
-        android:maxLines="1"
-        android:background="@drawable/write_text"
-        android:textColorHint="#a9a9a9"
-        android:inputType="datetime"
-        android:hint="Provide Date"
-        android:drawableLeft="@mipmap/ic_search_black_18dp"
-        android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light" />
+        <EditText
+            android:id="@+id/post_date"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/post_destination"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            android:alpha="0.75"
+            android:background="@drawable/small_text"
+            android:drawableLeft="@mipmap/ic_search_black_18dp"
+            android:drawablePadding="9dp"
+            android:hint="Provide Date"
+            android:inputType="datetime"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="9dp"
+            android:textColor="@android:color/primary_text_light"
+            android:textColorHint="#a9a9a9" />
 
-    <ImageView
+        <ImageView
         android:id="@+id/cross_date"
         android:layout_width="16dp"
         android:layout_height="16dp"
@@ -109,24 +127,26 @@
         android:src="@mipmap/ic_clear_black_18dp"/>
 
     <!--Text View for Time-->
-    <EditText
-        android:id="@+id/post_time"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="9dp"
-        android:layout_below="@+id/post_date"
-        android:maxLines="1"
-        android:background="@drawable/write_text"
-        android:textColorHint="#a9a9a9"
-        android:inputType="datetime"
-        android:hint="Provide Time"
-        android:drawableLeft="@mipmap/ic_search_black_18dp"
-        android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light" />
+        <EditText
+            android:id="@+id/post_time"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/post_date"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="-35dp"
+            android:layout_weight="0.5"
+            android:alpha="0.75"
+            android:background="@drawable/small_text"
+            android:drawableLeft="@mipmap/ic_search_black_18dp"
+            android:drawablePadding="9dp"
+            android:hint="Provide Time"
+            android:inputType="datetime"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="9dp"
+            android:textColor="@android:color/primary_text_light"
+            android:textColorHint="#a9a9a9" />
 
     <ImageView
         android:id="@+id/cross_time"
@@ -137,8 +157,20 @@
         android:layout_marginRight="20dp"
         android:src="@mipmap/ic_clear_black_18dp"/>
 
+    </LinearLayout>
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/textLayout"
+        android:id="@+id/buttonLayout">
     <!--Button for Submission-->
     <Button
+        android:background="@drawable/button_selecter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Post"
@@ -146,13 +178,34 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:id="@+id/submit_post"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="0.5"/>
+
+    <Button
+        android:background="@drawable/button_selecter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_below="@+id/submit_post"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/cancel_post"
+        android:onClick="onClick"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="0.5"/>
+    </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/submit_post" />
+        android:layout_below="@+id/buttonLayout" />
+
 
 </RelativeLayout>

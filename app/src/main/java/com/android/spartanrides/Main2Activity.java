@@ -1,7 +1,10 @@
 package com.android.spartanrides;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,11 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import jp.wasabeef.blurry.Blurry;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -136,6 +134,8 @@ public class Main2Activity extends AppCompatActivity {
             {
                 case 1: {
                     rootView = inflater.inflate(R.layout.activity_chat, container, false);
+                    ImageView v =  rootView.findViewById(R.id.chatLogo);
+                    blur(v);
                     break;
                 }
                 case 2: {
@@ -143,27 +143,21 @@ public class Main2Activity extends AppCompatActivity {
                     Post data acepting User Inputs
                     */
                     rootView = inflater.inflate(R.layout.search_or_post, container, false);
-//                    Button postButton= rootView.findViewById(R.id.post_redirect);
-//
-//                    postButton.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view)
-//                        {
-//                            // Do not use getApplicationContext(), this is an activity
-//                            Intent i = new Intent(getContext(), spartan_post.class);
-//                            startActivity(i);
-//                        }
-//
-//                    });
-//                    Button searchButton= rootView.findViewById(R.id.search_redirect);
-//                    searchButton.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view)
-//                        {
-//                            // Do not use getApplicationContext(), this is an activity
-//                        }
-//
-//                    });
+                    TextView textView = rootView.findViewById(R.id.searchPostText);
+                    Typeface typeface;
+
+                    ImageView v =  rootView.findViewById(R.id.searchPostLogo);
+                    blur(v);
+
+                    try {
+                        typeface = Typeface.createFromAsset(container.getContext().getAssets(), "fonts/Pacifico.ttf");
+                        textView.setTypeface(typeface);
+                        textView.setTextColor(Color.parseColor("#000000"));
+                        textView.setTextSize(30);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     break;
                 }
@@ -173,26 +167,28 @@ public class Main2Activity extends AppCompatActivity {
                     TextView name = (TextView)rootView.findViewById(R.id.username);
                     TextView email = (TextView)rootView.findViewById(R.id.emailid);
                     Button signout = (Button)rootView.findViewById(R.id.signoutButton);
-
-                    /*
-                    signout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //SignOut();
-                        }
-                    });
-                    */
                     break;
                 }
                 case 4:
                 {
                     rootView = inflater.inflate(R.layout.activity_help, container, false);
+                    ImageView v =  rootView.findViewById(R.id.helpLogo);
+                    blur(v);
                     break;
-
                 }
             }
             return rootView;
         }
+
+        private void blur(ImageView v)
+        {
+            Bitmap blurredBitmap = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                blurredBitmap = BlurBitmap.blur( getContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo) );
+                v.setImageBitmap(blurredBitmap);
+            }
+        }
+
     }
 
     /**
