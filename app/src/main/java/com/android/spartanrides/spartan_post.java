@@ -5,6 +5,9 @@ package com.android.spartanrides;
  *
  */
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,6 +78,13 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient();
         buildGoogleApiClient2();
         setContentView(R.layout.activity_post);
+
+        ImageView v = (ImageView) findViewById(R.id.postLogo);
+        Bitmap blurredBitmap = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
+            v.setImageBitmap(blurredBitmap);
+        }
 
         final TextView postView = (EditText) findViewById(R.id.post_source);
         final TextView destView = (EditText) findViewById(R.id.post_destination);
@@ -353,6 +363,8 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         if(v==button) {
             try {
                 convertToJSON();
+                Intent intent = new Intent(this, ThankYouPost.class);
+                startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

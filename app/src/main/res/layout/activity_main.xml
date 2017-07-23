@@ -7,16 +7,22 @@
     tools:context="com.android.spartanrides.MainActivity">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/loginLogo"
         android:layout_width="0dp"
-        android:layout_height="495dp"
-        android:src="@drawable/spartanlogo"
-        android:scaleType="centerCrop"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="550dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
         android:contentDescription=""
-        tools:layout_editor_absoluteY="0dp" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/spartanlogo"
+        app:layout_constraintBottom_toBottomOf="@+id/signinButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.684" />
 
     <Button
+        android:background="@drawable/button_selecter"
         android:id="@+id/signinButton"
         android:layout_width="402dp"
         android:layout_height="51dp"
@@ -24,7 +30,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="#FFC107"
         android:fontFamily="sans-serif"
         android:text="SIGNIN SPARTAN"
         android:textAppearance="?android:textAppearanceLarge"
@@ -33,6 +38,9 @@
         android:textSize="24sp"
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteX="-9dp"
-        tools:layout_editor_absoluteY="458dp" />
+        tools:layout_editor_absoluteY="458dp"
+        android:alpha="0.65" />
+    <!--android:background="#FFC107"
+    android:textColor="#0D47A1"-->
 
 </android.support.constraint.ConstraintLayout>

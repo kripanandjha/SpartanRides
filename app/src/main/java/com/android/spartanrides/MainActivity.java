@@ -2,12 +2,17 @@ package com.android.spartanrides;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +52,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.signinButton).setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
+
+        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo);
+//        Blurry.with(getApplicationContext())
+//                .radius(25)
+//                .sampling(2)
+//                .onto((ViewGroup)findViewById(R.id.logo));
+        //Blurry.with(MainActivity.this).from(bitmap).into((ImageView)findViewById(R.id.logo).getParent());
+
     }
 
     @Override
