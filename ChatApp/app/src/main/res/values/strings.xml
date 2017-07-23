@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="facebook_application_id" translatable="false">2339563149601674</string>
+</resources>
