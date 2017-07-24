@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<h1> Hello world</h1>
+<SCRIPT TYPE="text/javascript" src="./cp.js"> </SCRIPT>
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
+<h2> Hello <?php if (isset($_SESSION['fb_access_token'])){
+echo 'Hello people';
+}?> </h2>
+</body>
+</html>
