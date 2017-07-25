@@ -307,6 +307,12 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         return jsonObject;
     }
 
+    private String getMessage(){
+        String message = "Venkat"+" "+"would be driving to "+destVal+
+                " from "+sourceVal+" on "+dateVal+" at "+timeVal;
+        return message;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -398,8 +404,12 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
                     && !dateView.getText().toString().isEmpty() && !timeView.getText().toString().isEmpty()) {
                 try {
                     convertToJSON();
-                    Intent intent = new Intent(this, ThankYouPost.class);
+                    Intent intent = new Intent(this, PostsearchActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("message", getMessage());
+                    intent.putExtras(b);
                     startActivity(intent);
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

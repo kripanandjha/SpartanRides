@@ -228,7 +228,8 @@ public class Main2Activity extends AppCompatActivity {
 
     public void doSearch(View view)
     {
-
+        Intent intent = new Intent(this, PostsearchActivity.class);
+        startActivity(intent);
     }
 
     public void submitSuggestion(View view)
