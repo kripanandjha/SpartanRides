@@ -37,7 +37,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="300dp"
-        />
+        android:alpha="0.5"/>
 
 
     <!--Button for Post-->
@@ -50,9 +50,7 @@
         android:onClick="doPost"
         android:layout_alignTop="@+id/search_redirect"
         android:layout_below="@+id/search_redirect"
-        android:layout_marginTop="50dp"/>
-
-
-
+        android:layout_marginTop="50dp"
+        android:alpha="0.5"/>
 
 </RelativeLayout>

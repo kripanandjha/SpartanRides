@@ -17,7 +17,7 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFC107"
+        android:background="#000FFF"
         android:textColorHighlight="#64B5F6"
         android:textColor="#0D47A1"
         android:text="NAME:"
@@ -28,8 +28,8 @@
         android:id="@+id/emailid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFC107"
-        android:textColorHighlight="#64B5F6"
+        android:background="#000FFF"
+        android:textColorHighlight="#00FFFF"
         android:textColor="#0D47A1"
         android:text="EMAIL_ID:"
         android:textStyle="bold|italic"
@@ -39,7 +39,7 @@
         android:id="@+id/medallions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFC107"
+        android:background="#000FFF"
         android:textColorHighlight="#64B5F6"
         android:textColor="#0D47A1"
         android:text="MEDALLIONS:"
@@ -53,10 +53,10 @@
         android:text="SIGNOUT SPARTAN"
         android:textStyle="bold|italic"
         android:fontFamily="sans-serif"
-        android:background="#FFC107"
-        android:textColor="#0D47A1"
+        android:background="#000FFF"
+        android:textColor="#FFFFFF"
         android:layout_weight="2"
-        android:textSize="30sp"/>
-
+        android:textSize="30sp"
+        android:alpha="0.5"/>
 
 </LinearLayout>

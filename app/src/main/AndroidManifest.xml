@@ -38,6 +38,8 @@
         <activity android:name=".spartan_post" />
         <activity android:name=".SearchOrPost" />
         <activity android:name=".ThankYouPost" />
+        <activity android:name=".HelpActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"

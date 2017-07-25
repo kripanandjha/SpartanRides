@@ -29,6 +29,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="462dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:alpha="0.65"/>
 
 </RelativeLayout>

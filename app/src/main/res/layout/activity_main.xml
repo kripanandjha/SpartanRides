@@ -30,17 +30,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:fontFamily="sans-serif"
+        android:fontFamily="casual"
         android:text="SIGNIN SPARTAN"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="#0D47A1"
-        android:textColorHighlight="#64B5F6"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold|italic"
         tools:layout_editor_absoluteX="-9dp"
         tools:layout_editor_absoluteY="458dp"
         android:alpha="0.65" />
-    <!--android:background="#FFC107"
-    android:textColor="#0D47A1"-->
 
 </android.support.constraint.ConstraintLayout>
