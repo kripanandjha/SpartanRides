@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,11 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONException;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -223,8 +228,27 @@ public class Main2Activity extends AppCompatActivity {
 
     public void doSearch(View view)
     {
-        //Intent intent = new Intent(this, spartan_post.class);
-        //startActivity(intent);
+
     }
 
+    public void submitSuggestion(View view)
+    {
+        String ratingBar =  String.valueOf(((RatingBar)findViewById(R.id.ratingBar2)).getRating());
+        String suggestionText =  ((TextView)findViewById(R.id.suggestionText)).getText().toString();
+        InputMethodManager imm = (InputMethodManager)this.getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        if (!ratingBar.equals("0.0")) {
+            HelpActivity helpActivity = new HelpActivity();
+            try {
+                Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
+                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON("venkat", ratingBar, suggestionText));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Snackbar.make(view, "Oops! Seems like you you forgot to rate us.", Snackbar.LENGTH_SHORT).show();
+        }
+    }
 }

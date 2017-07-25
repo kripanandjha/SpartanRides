@@ -14,7 +14,6 @@
         android:scaleType="centerCrop"/>
 
     <!--Text View for Source-->
-
     <EditText
         android:id="@+id/post_source"
         android:layout_width="match_parent"
@@ -42,6 +41,7 @@
         android:layout_marginRight="20dp"
         android:src="@mipmap/ic_clear_black_18dp"/>
 
+    <!--Recycler View for Source-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:scrollbars="vertical"
@@ -74,10 +74,12 @@
         android:id="@+id/cross_dest"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="90dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_clear_black_18dp"/>
+        android:src="@mipmap/ic_clear_black_18dp"
+        android:layout_alignLeft="@+id/cross_post"
+        android:layout_alignStart="@+id/cross_post"
+        android:layout_alignRight="@+id/cross_post"
+        android:layout_alignEnd="@+id/cross_post" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"
@@ -115,7 +117,8 @@
             android:paddingLeft="8dp"
             android:paddingRight="9dp"
             android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#a9a9a9" />
+            android:textColorHint="#a9a9a9"
+            android:focusable="false"/>
 
         <ImageView
         android:id="@+id/cross_date"
@@ -146,7 +149,8 @@
             android:paddingLeft="8dp"
             android:paddingRight="9dp"
             android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#a9a9a9" />
+            android:textColorHint="#a9a9a9"
+            android:focusable="false"/>
 
     <ImageView
         android:id="@+id/cross_time"
@@ -156,7 +160,6 @@
         android:layout_marginTop="210dp"
         android:layout_marginRight="20dp"
         android:src="@mipmap/ic_clear_black_18dp"/>
-
     </LinearLayout>
 
 
@@ -206,6 +209,4 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/buttonLayout" />
-
-
 </RelativeLayout>

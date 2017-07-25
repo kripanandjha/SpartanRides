@@ -5,9 +5,12 @@ package com.android.spartanrides;
  *
  */
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,9 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,14 +43,18 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+
 public class spartan_post extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
     public static final String API_NOT_CONNECTED = "Google API not connected";
     public static final String SOMETHING_WENT_WRONG = "OOPs!!! Something went wrong...";
     public static final String PLACES_TAG = "Google Places";
 
-    protected GoogleApiClient mGoogleApiClient;
-    protected GoogleApiClient mGoogleApiClient2;
+    protected GoogleApiClient mGoogleApiClient,mGoogleApiClient2;
 
     private static final LatLngBounds BOUNDS_INDIA = new LatLngBounds(
             new LatLng(-0, 0), new LatLng(0, 0));
@@ -53,24 +62,21 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
     private static final LatLngBounds BOUNDS_INDIA2 = new LatLngBounds(
             new LatLng(-0, 0), new LatLng(0, 0));
 
-    private EditText mAutocompleteViewSource;
-    private EditText mAutocompleteViewDest;
-    private RecyclerView mRecyclerView;
-    private RecyclerView mRecyclerView2;
-    private LinearLayoutManager mLinearLayoutManager;
-    private LinearLayoutManager mLinearLayoutManager2;
-    private PlacesAutoCompleteAdapter mAutoCompleteAdapter;
-    private PlacesAutoCompleteAdapter mAutoCompleteAdapter2;
+    private EditText mAutocompleteViewSource, mAutocompleteViewDest;
+    private RecyclerView mRecyclerView, mRecyclerView2;
+    private LinearLayoutManager mLinearLayoutManager,mLinearLayoutManager2;
+    private PlacesAutoCompleteAdapter mAutoCompleteAdapter, mAutoCompleteAdapter2;
     private CharSequence textData = "";
 
-    ImageView delete;
-    ImageView delete2;
-    Button button;
+    ImageView delete, delete2;
+    Button submit, cancel;
+    TextView sourceView, destView;
+    EditText dateView, timeView;
 
-    public String sourceVal="";
-    public String destVal = "";
-    public String dateVal = "";
-    public String timeVal = "";
+    public String sourceVal= "";
+    public String destVal  = "";
+    public String dateVal  = "";
+    public String timeVal  = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,21 +86,33 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_post);
 
         ImageView v = (ImageView) findViewById(R.id.postLogo);
-        Bitmap blurredBitmap = null;
+        Bitmap blurredBitmap;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
             v.setImageBitmap(blurredBitmap);
         }
 
-        final TextView postView = (EditText) findViewById(R.id.post_source);
-        final TextView destView = (EditText) findViewById(R.id.post_destination);
+        sourceView = (EditText) findViewById(R.id.post_source);
+        destView = (EditText) findViewById(R.id.post_destination);
+        submit = (Button) findViewById(R.id.submit_post);
+        cancel = (Button) findViewById(R.id.cancel_post);
+        dateView = (EditText) findViewById(R.id.post_date);
+        timeView = (EditText) findViewById(R.id.post_time);
+        delete = (ImageView)findViewById(R.id.cross_post);
+        delete2 = (ImageView)findViewById(R.id.cross_dest);
 
-        button = (Button) findViewById(R.id.submit_post);
 
+        /* Set onClick Listeners various events in PostActivity*/
+        dateView.setOnClickListener(this);
+        timeView.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        delete.setOnClickListener(this);
+        delete2.setOnClickListener(this);
+
+        /*Initializing values for Location Autocomplete*/
         mAutocompleteViewSource = (EditText)findViewById(R.id.post_source);
         mAutocompleteViewDest = (EditText)findViewById(R.id.post_destination);
-        delete=(ImageView)findViewById(R.id.cross_post);
-        delete2=(ImageView)findViewById(R.id.cross_dest);
 
         mAutoCompleteAdapter =  new PlacesAutoCompleteAdapter(this, R.layout.search_row,
                 mGoogleApiClient, BOUNDS_INDIA, null);
@@ -109,9 +127,6 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         mRecyclerView2.setLayoutManager(mLinearLayoutManager2);
         mRecyclerView.setAdapter(mAutoCompleteAdapter);
         mRecyclerView2.setAdapter(mAutoCompleteAdapter2);
-        button.setOnClickListener(this);
-        delete.setOnClickListener(this);
-        delete2.setOnClickListener(this);
 
         /*OnClick Listener for Source Field*/
         mAutocompleteViewSource.addTextChangedListener(new TextWatcher() {
@@ -123,7 +138,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
                     Toast.makeText(getApplicationContext(), API_NOT_CONNECTED,Toast.LENGTH_SHORT).show();
                     Log.e(PLACES_TAG,API_NOT_CONNECTED);
                 }
-                clearOtherBoxes(postView);
+                clearOtherBoxes(sourceView);
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count,
@@ -131,7 +146,9 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             }
 
             public void afterTextChanged(Editable s) {
+
                 mRecyclerView.setVisibility(View.VISIBLE);
+                sourceView.requestFocus();
             }
         });
 
@@ -153,7 +170,9 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             }
 
             public void afterTextChanged(Editable s) {
+
                 mRecyclerView2.setVisibility(View.VISIBLE);
+                destView.requestFocus();
             }
         });
 
@@ -234,64 +253,51 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-
-
-    public void showAllBoxes()
+    private void showAllBoxes()
     {
         TextView postText = (EditText) findViewById(R.id.post_source);
         TextView destText = (EditText) findViewById(R.id.post_destination);
-        TextView dateText = (EditText) findViewById(R.id.post_date);
-        TextView timeText = (EditText) findViewById(R.id.post_time);
-        postText.setText(sourceVal);
-        destText.setText(destVal);
-
         ImageView crossPost = (ImageView) findViewById(R.id.cross_post);
         ImageView crossDate = (ImageView) findViewById(R.id.cross_date);
-        ImageView crossTime = (ImageView) findViewById(R.id.cross_time);
         ImageView crossDest = (ImageView) findViewById(R.id.cross_dest);
-        Button button = (Button) findViewById(R.id.submit_post);
+        View dateText = findViewById(R.id.textLayout);
+        postText.setText(sourceVal);
+        destText.setText(destVal);
+        View button = findViewById(R.id.buttonLayout);
         postText.setVisibility(View.VISIBLE);
         destText.setVisibility(View.VISIBLE);
         dateText.setVisibility(View.VISIBLE);
-        timeText.setVisibility(View.VISIBLE);
-        crossDest.setVisibility(View.VISIBLE);
         crossDate.setVisibility(View.VISIBLE);
-        crossTime.setVisibility(View.VISIBLE);
         crossPost.setVisibility(View.VISIBLE);
+        crossDest.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
         mRecyclerView2.setVisibility(View.INVISIBLE);
     }
 
-    public void clearOtherBoxes(TextView textView)
+    private void clearOtherBoxes(TextView textView)
     {
         TextView postText = (EditText) findViewById(R.id.post_source);
         TextView destText = (EditText) findViewById(R.id.post_destination);
-        TextView dateText = (EditText) findViewById(R.id.post_date);
-        TextView timeText = (EditText) findViewById(R.id.post_time);
+        View dateText = findViewById(R.id.textLayout);
         ImageView crossPost = (ImageView) findViewById(R.id.cross_post);
-        ImageView crossDate = (ImageView) findViewById(R.id.cross_date);
-        ImageView crossTime = (ImageView) findViewById(R.id.cross_time);
         ImageView crossDest = (ImageView) findViewById(R.id.cross_dest);
+        ImageView crossDate = (ImageView) findViewById(R.id.cross_date);
 
-        Button button = (Button) findViewById(R.id.submit_post);
+        View button = findViewById(R.id.buttonLayout);
         destText.setVisibility(View.INVISIBLE);
         dateText.setVisibility(View.INVISIBLE);
-        timeText.setVisibility(View.INVISIBLE);
         postText.setVisibility(View.INVISIBLE);
-        crossDest.setVisibility(View.INVISIBLE);
         crossDate.setVisibility(View.INVISIBLE);
-        crossTime.setVisibility(View.INVISIBLE);
         crossPost.setVisibility(View.INVISIBLE);
+        crossDest.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
         textView.setVisibility(View.VISIBLE);
         if(textView.getId()==R.id.post_destination)
             postText.setVisibility(View.VISIBLE);
-
-
     }
 
-    public JSONObject convertToJSON() throws JSONException {
+    private JSONObject convertToJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Source", sourceVal);
         jsonObject.put("Destination", destVal);
@@ -358,23 +364,87 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         Toast.makeText(this, API_NOT_CONNECTED,Toast.LENGTH_SHORT).show();
     }
 
+
+    Calendar myCalendar = Calendar.getInstance();
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+
+    };
+
+    private void updateLabel() {
+
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        TextView dateView = (TextView) findViewById(R.id.post_date);
+        dateView.setText(sdf.format(myCalendar.getTime()));
+        dateVal = sdf.format(myCalendar.getTime()).toString();
+    }
+
     @Override
     public void onClick(View v) {
-        if(v==button) {
-            try {
-                convertToJSON();
-                Intent intent = new Intent(this, ThankYouPost.class);
-                startActivity(intent);
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if(v==submit) {
+            if(!sourceView.getText().toString().isEmpty() && !destView.getText().toString().isEmpty()
+                    && !dateView.getText().toString().isEmpty() && !timeView.getText().toString().isEmpty()) {
+                try {
+                    convertToJSON();
+                    Intent intent = new Intent(this, ThankYouPost.class);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+
+                Snackbar.make(v,"Please enter all the values before posting",Snackbar.LENGTH_SHORT).show();
             }
         }
 
-        if(v==delete && v.getId()==R.id.cross_post){
+        if(v==findViewById(R.id.post_date)) {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+            datePickerDialog.show();
+        }
+
+        if(v==findViewById(R.id.post_time))
+        {
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+            mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                    timeView.setText( selectedHour + ":" + selectedMinute);
+                    timeVal = (selectedHour + ":" + selectedMinute).toString();
+                }
+            }, hour, minute, false);
+            mTimePicker.show();
+        }
+
+        if(v==delete && v.getId()==R.id.cross_post && !mAutocompleteViewSource.getText().toString().equals("")){
             mAutocompleteViewSource.setText("");
         }
-        if(v==delete2 && v.getId()==R.id.cross_dest){
+        if(v==delete2 && v.getId()==R.id.cross_dest && !mAutocompleteViewDest.getText().toString().equals("")){
             mAutocompleteViewDest.setText("");
+        }
+
+        if(v==cancel)
+        {
+            Intent intent = new Intent(this, Main2Activity.class);
+            startActivity(intent);
         }
     }
 

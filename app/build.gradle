@@ -37,7 +37,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:11.0.1'
     compile 'com.google.android.gms:play-services-places:11.0.1'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
-//    compile 'jp.wasabeef:blurry:2.1.1'
-//    compile 'android:renderscript:19.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
