@@ -13,4 +13,5 @@
     <string name="name">NAME:</string>
     <string name="signout_spartan">SIGNOUT SPARTAN</string>
     <string name="source">Provide Source</string>
+    <string name="facebook_application_id" translatable="false">2339563149601674</string>
 </resources>

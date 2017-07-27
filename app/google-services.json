@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "22792258416",
-    "project_id": "spartanride-173019"
+    "firebase_url": "https://spartanride-173019.firebaseio.com",
+    "project_id": "spartanride-173019",
+    "storage_bucket": "spartanride-173019.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,18 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "22792258416-u4u0c1n1tf00f53a4mpt4537a7q480lc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.spartanrides",
+            "certificate_hash": "c322f7c9524c8b6507f0f693115a1d17291a174b"
+          }
+        },
+        {
+          "client_id": "22792258416-8soa7r1aorra7hfh8bit4btl1n9mhp06.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "22792258416-7cghumt83seg2l730fk25racm5qn0u5e.apps.googleusercontent.com",
           "client_type": 3
@@ -35,11 +49,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22792258416-8soa7r1aorra7hfh8bit4btl1n9mhp06.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
