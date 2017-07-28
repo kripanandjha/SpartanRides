@@ -56,6 +56,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC0set0U_QLx58RVbqPZ356u3glRCYdp3Q" />
 
+        <!--Firebase Facebook login-->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id" />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1854328631556764"
+            android:exported="true" />
+
         <activity android:name=".PostsearchActivity"></activity>
     </application>
 

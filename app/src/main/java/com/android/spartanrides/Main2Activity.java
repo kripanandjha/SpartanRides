@@ -1,5 +1,6 @@
 package com.android.spartanrides;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,24 +27,46 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.database.FirebaseListAdapter;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facebook.login.LoginManager;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Main2Activity extends AppCompatActivity {
+    FirebaseAuth.AuthStateListener authListner;
+    FirebaseAuth mAuth;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -67,15 +91,22 @@ public class Main2Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-  /*
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        googleApiClient.connect();
-*/
+        authListner = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    mAuth = firebaseAuth;
+
+                } else {
+                    // User is signed out
+
+                }
+                // ...
+            }
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(authListner);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -118,13 +149,10 @@ public class Main2Activity extends AppCompatActivity {
 
         if(id== R.id.menu_sign_out)
         {
-            AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Snackbar.make(mViewPager,"You have been signed out.",Snackbar.LENGTH_SHORT).show();
-                    finish();
-                }
-            });
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
+            Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -138,9 +166,19 @@ public class Main2Activity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
+
+        /**
+         * Declarations for Chat USers
+         */
+
+        ListView usersList;
+        TextView noUsersText;
+        ArrayList<String> al = new ArrayList<>();
+        int totalUsers = 0;
+        ProgressDialog pd;
+
+
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private FirebaseListAdapter<ChatMessage> adapter;
-        FloatingActionButton fab;
 
         public PlaceholderFragment() {
         }
@@ -165,26 +203,39 @@ public class Main2Activity extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER))
             {
                 case 1: {
-                    rootView = inflater.inflate(R.layout.activity_main, container, false);
-                    final ListView listOfMessage = rootView.findViewById(R.id.list_of_message);
-                    displayChatMessage(listOfMessage);
-                    scrollListViewToBottom(listOfMessage);
-                    fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
+                    rootView = inflater.inflate(R.layout.activity_users, container, false);
+                    super.onCreate(savedInstanceState);
+                    usersList = (ListView)rootView.findViewById(R.id.usersList);
+                    noUsersText = (TextView)rootView.findViewById(R.id.noUsersText);
 
-                    final View finalRootView = rootView;
-                    fab.setOnClickListener(new View.OnClickListener() {
+                    pd = new ProgressDialog(getContext());
+                    pd.setMessage("Loading...");
+                    pd.show();
+
+                    String url = "https://androidchatapp-76776.firebaseio.com/users.json";
+
+                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
-                        public void onClick(View view) {
-                            //Getting the DatabaseReference object using the getReference() method of the FirebaseDatabase class
-                           EditText input = (EditText) finalRootView.findViewById(R.id.input);
-                            FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
-                                    FirebaseAuth.getInstance().getCurrentUser().getEmail()));
-                            input.setText("");
-                            listOfMessage.smoothScrollToPosition(adapter.getCount()-1);
-                            scrollListViewToBottom(listOfMessage);
+                        public void onResponse(String s) {
+                            doOnSuccess(s);
+                        }
+                    },new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            System.out.println("" + volleyError);
                         }
                     });
 
+                    RequestQueue rQueue = Volley.newRequestQueue(getContext());
+                    rQueue.add(request);
+
+                    usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            UserDetails.chatWith = al.get(position);
+                            startActivity(new Intent(getContext(), Chat.class));
+                        }
+                    });
                     break;
                 }
                 case 2: {
@@ -238,40 +289,38 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
 
-        public void displayChatMessage(ListView view) {
+        public void doOnSuccess(String s){
+            try {
+                JSONObject obj = new JSONObject(s);
 
-            adapter = new FirebaseListAdapter<ChatMessage>(getActivity(),ChatMessage.class,R.layout.list_item, FirebaseDatabase.getInstance().getReference())
-            {
-                //FirebaseListAdapter is an abstract class and has an abstract method populateView(), which must be overriden.
-                //populateView() method is used to populate the views of each list item.
-                @Override
-                protected void populateView(View v, ChatMessage model, int position) {
-                    //Get references to the views of the list_item.xml
-                    TextView messageText,messageUser,messageTime;
-                    messageText = (TextView) v.findViewById(R.id.message_text);
-                    messageUser = (TextView) v.findViewById(R.id.message_user);
-                    messageTime = (TextView) v.findViewById(R.id.message_time);
+                Iterator i = obj.keys();
+                String key = "";
 
-                    messageText.setText(model.getMessageText());
-                    messageUser.setText(model.getMessageUser());
-                    messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()));
+                while(i.hasNext()){
+                    key = i.next().toString();
+
+                    if(!key.equals(UserDetails.username)) {
+                        al.add(key);
+                    }
+
+                    totalUsers++;
                 }
-            };
-            view.setAdapter(adapter);
-            view.smoothScrollToPosition(adapter.getCount()-1);
-            scrollListViewToBottom(view);
 
-        }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        private void scrollListViewToBottom(final ListView myListView)
-        {
-            myListView.post(new Runnable() {
-                @Override
-                public void run()
-                { // Select the last row so it will scroll into view...
-                    myListView.setSelection(adapter.getCount() - 1);
-                }
-            });
+            if(totalUsers <=1){
+                noUsersText.setVisibility(View.VISIBLE);
+                usersList.setVisibility(View.GONE);
+            }
+            else{
+                noUsersText.setVisibility(View.GONE);
+                usersList.setVisibility(View.VISIBLE);
+                usersList.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, al));
+            }
+
+            pd.dismiss();
         }
 
     }
