@@ -29,6 +29,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -45,7 +54,9 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class spartan_post extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
@@ -414,13 +425,14 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             if(!sourceView.getText().toString().isEmpty() && !destView.getText().toString().isEmpty()
                     && !dateView.getText().toString().isEmpty() && !timeView.getText().toString().isEmpty()) {
                 try {
-                    new JSONActivity().JSONTransmitter(convertToJSON(),POST_URL);
+//                    new JSONActivity().JSONTransmitter(convertToJSON(),POST_URL);
                     Intent intent = new Intent(this, PostsearchActivity.class);
                     Bundle b = new Bundle();
                     b.putString("message", getMessage());
                     intent.putExtras(b);
                     startActivity(intent);
                     finish();
+                    makeJsonObjReq(convertToJSON().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -500,4 +512,33 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         super.onBackPressed();
     }
 
+
+    private void makeJsonObjReq(final String jsonData) {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://spartanrides.me/post.php";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // your response
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }){
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                String your_string_json = jsonData; // put your json
+                return your_string_json.getBytes();
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        queue.start();
+    }
 }

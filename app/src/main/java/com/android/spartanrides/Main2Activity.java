@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -377,7 +378,7 @@ public class Main2Activity extends AppCompatActivity {
             HelpActivity helpActivity = new HelpActivity();
             try {
                 Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
-                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON(UserDetails.username, ratingBar, suggestionText),HELP_URL);
+                makeJsonObjReqSuggestions(helpActivity.convertToJSON(ratingBar, suggestionText));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -396,5 +397,35 @@ public class Main2Activity extends AppCompatActivity {
         } catch (Exception e) {
             return null;
         }
+    }
+
+
+    private void makeJsonObjReqSuggestions(final String jsonData) {
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url ="https://spartanrides.me/suggestions.php";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // your response
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }){
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                String your_string_json = jsonData; // put your json
+                return your_string_json.getBytes();
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        queue.start();
     }
 }
