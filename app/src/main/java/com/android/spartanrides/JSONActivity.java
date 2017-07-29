@@ -21,8 +21,8 @@ public class JSONActivity {
             }
         }
 
-    public void JSONTransmitter(JSONObject jsonObject) {
-        ServerTask task = new ServerTask();
+    public void JSONTransmitter(JSONObject jsonObject, String url) {
+        ServerTask task = new ServerTask(url);
         task.jsonObject = jsonObject;
         task.execute();
     }

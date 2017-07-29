@@ -50,6 +50,8 @@ import java.util.Locale;
 
 public class spartan_post extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
+
+    public static final String POST_URL = "https://spartanrides.me/post.php";
     public static final String API_NOT_CONNECTED = "Google API not connected";
     public static final String SOMETHING_WENT_WRONG = "OOPs!!! Something went wrong...";
     public static final String PLACES_TAG = "Google Places";
@@ -77,6 +79,8 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
     public String destVal  = "";
     public String dateVal  = "";
     public String timeVal  = "";
+    public String destLatLong = "";
+    public String sourceLatLong = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +200,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
                                 if(places.getCount()==1){
                                     //Do the things here on Click.....
                                     Toast.makeText(getApplicationContext(),String.valueOf(places.get(0).getLatLng()),Toast.LENGTH_SHORT).show();
+                                    sourceLatLong = places.get(0).getLatLng().toString();
                                 }else {
                                     Toast.makeText(getApplicationContext(),SOMETHING_WENT_WRONG,Toast.LENGTH_SHORT).show();
                                 }
@@ -233,6 +238,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
                                 if(places.getCount()==1){
                                     //Do the things here on Click.....
                                     Toast.makeText(getApplicationContext(),String.valueOf(places.get(0).getLatLng()),Toast.LENGTH_SHORT).show();
+                                    destLatLong = places.get(0).getLatLng().toString();
                                 }else {
                                     Toast.makeText(getApplicationContext(),SOMETHING_WENT_WRONG,Toast.LENGTH_SHORT).show();
                                 }
@@ -299,8 +305,13 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
 
     private JSONObject convertToJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Source", sourceVal);
-        jsonObject.put("Destination", destVal);
+        jsonObject.put("Activity", "POST");
+        jsonObject.put("Username", UserDetails.username);
+        jsonObject.put("EmailID", UserDetails.emailID);
+        jsonObject.put("FBUserID", UserDetails.fbUserID);
+        jsonObject.put("AccessToken", UserDetails.accessToken);
+        jsonObject.put("Source", sourceLatLong);
+        jsonObject.put("Destination", destLatLong);
         jsonObject.put("Date", dateVal);
         jsonObject.put("Time", timeVal);
         JSONActivity.printJSON(jsonObject);
@@ -403,7 +414,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             if(!sourceView.getText().toString().isEmpty() && !destView.getText().toString().isEmpty()
                     && !dateView.getText().toString().isEmpty() && !timeView.getText().toString().isEmpty()) {
                 try {
-                    convertToJSON();
+                    new JSONActivity().JSONTransmitter(convertToJSON(),POST_URL);
                     Intent intent = new Intent(this, PostsearchActivity.class);
                     Bundle b = new Bundle();
                     b.putString("message", getMessage());

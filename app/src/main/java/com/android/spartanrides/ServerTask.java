@@ -20,6 +20,11 @@ import java.net.URL;
 public class ServerTask extends AsyncTask<String, Void, String> {
 
     JSONObject jsonObject;
+    String URL;
+
+    public ServerTask(String URL) {
+        this.URL = URL;
+    }
 
     public void sendRequest(JSONObject jsonObject){
         this.jsonObject = jsonObject;
@@ -37,7 +42,7 @@ public class ServerTask extends AsyncTask<String, Void, String> {
         InputStream is = null;
         HttpURLConnection conn = null;
         try {
-            URL url = new URL("https://spartanrides.me/post.php");
+            URL url = new URL(URL);
             String message = jsonObject.toString();
 
             conn = (HttpURLConnection) url.openConnection();

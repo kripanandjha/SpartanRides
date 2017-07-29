@@ -167,12 +167,11 @@ public class MainActivity extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
 //        hideProgressDialog();
         if (user != null) {
-            firebaseUser = user.getDisplayName();
 //            mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
 //            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
             Log.d("LOGIN MSG","Logged in Successfully");
             findViewById(R.id.login_button).setVisibility(View.GONE);
-            UserDetails.username = firebaseUser;
+            updateUserInfo(user);
             addUser();
             Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             startActivity(intent);
@@ -240,5 +239,14 @@ public class MainActivity extends AppCompatActivity implements
             RequestQueue rQueue = Volley.newRequestQueue(getApplicationContext());
             rQueue.add(request);
         }
+    }
+
+    public void updateUserInfo(FirebaseUser user){
+        firebaseUser = user.getDisplayName();
+        UserDetails.username = firebaseUser;
+        UserDetails.fbUserID = user.getUid();
+        UserDetails.emailID = user.getEmail();
+        UserDetails.photoURL = user.getPhotoUrl().toString();
+        UserDetails.accessToken = AccessToken.getCurrentAccessToken().getToken();
     }
 }

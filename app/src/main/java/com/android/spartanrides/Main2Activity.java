@@ -67,6 +67,7 @@ import java.util.Map;
 public class Main2Activity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authListner;
     FirebaseAuth mAuth;
+    public final String HELP_URL = "https://spartanrides.me/suggestions.php";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -372,7 +373,7 @@ public class Main2Activity extends AppCompatActivity {
             HelpActivity helpActivity = new HelpActivity();
             try {
                 Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
-                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON("venkat", ratingBar, suggestionText));
+                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON("venkat", ratingBar, suggestionText),HELP_URL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
