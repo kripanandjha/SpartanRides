@@ -212,7 +212,7 @@ public class Main2Activity extends AppCompatActivity {
                     pd.setMessage("Loading...");
                     pd.show();
 
-                    String url = "https://androidchatapp-76776.firebaseio.com/users.json";
+                    String url = "https://spartanride-173019.firebaseio.com/users.json";
 
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
@@ -295,6 +295,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 Iterator i = obj.keys();
                 String key = "";
+                al.clear();
 
                 while(i.hasNext()){
                     key = i.next().toString();

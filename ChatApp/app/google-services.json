@@ -1,35 +1,47 @@
 {
   "project_info": {
-    "project_number": "714809021198",
-    "firebase_url": "https://chatapp-2186d.firebaseio.com",
-    "project_id": "chatapp-2186d",
-    "storage_bucket": "chatapp-2186d.appspot.com"
+    "project_number": "22792258416",
+    "firebase_url": "https://spartanride-173019.firebaseio.com",
+    "project_id": "spartanride-173019",
+    "storage_bucket": "spartanride-173019.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714809021198:android:7d747be030875738",
+        "mobilesdk_app_id": "1:22792258416:android:fa2d7f58dcbd2704",
         "android_client_info": {
-          "package_name": "com.example.raunaktiwari.chatapp"
+          "package_name": "com.android.spartanrides"
         }
       },
       "oauth_client": [
         {
-          "client_id": "714809021198-d6phus2m6kisk0ugllhrb9tapu3l7u3p.apps.googleusercontent.com",
+          "client_id": "22792258416-u4u0c1n1tf00f53a4mpt4537a7q480lc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.raunaktiwari.chatapp",
+            "package_name": "com.android.spartanrides",
             "certificate_hash": "c322f7c9524c8b6507f0f693115a1d17291a174b"
           }
         },
         {
-          "client_id": "714809021198-5jg2uim3ufc61iid272iu8kpf8sb7h66.apps.googleusercontent.com",
+          "client_id": "22792258416-8soa7r1aorra7hfh8bit4btl1n9mhp06.apps.googleusercontent.com",
           "client_type": 3
+        },
+        {
+          "client_id": "22792258416-7cghumt83seg2l730fk25racm5qn0u5e.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "22792258416-4st854ip1rir3rhfsknovf744hf2meqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.spartanrides",
+            "certificate_hash": "5b076871c7f0253ff9173145f3245b87426b8052"
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDerSKIdAByCm5IDQnpwVUOuwFL0NL7vzQ"
+          "current_key": "AIzaSyC0set0U_QLx58RVbqPZ356u3glRCYdp3Q"
         }
       ],
       "services": {
@@ -40,7 +52,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "714809021198-5jg2uim3ufc61iid272iu8kpf8sb7h66.apps.googleusercontent.com",
+              "client_id": "22792258416-8soa7r1aorra7hfh8bit4btl1n9mhp06.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

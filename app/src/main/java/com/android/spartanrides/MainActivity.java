@@ -1,5 +1,6 @@
 package com.android.spartanrides;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.hardware.camera2.params.Face;
 import android.os.Bundle;
@@ -11,6 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.spartanrides.Main2Activity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -19,6 +26,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -27,6 +35,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Demonstrate Firebase Authentication using a Facebook access token.
@@ -38,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+
+
+    //Chat details
+    String firebaseUser;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -152,10 +167,13 @@ public class MainActivity extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
 //        hideProgressDialog();
         if (user != null) {
+            firebaseUser = user.getDisplayName();
 //            mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
 //            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
             Log.d("LOGIN MSG","Logged in Successfully");
             findViewById(R.id.login_button).setVisibility(View.GONE);
+            UserDetails.username = firebaseUser;
+            addUser();
             Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             startActivity(intent);
 //            findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
@@ -174,5 +192,53 @@ public class MainActivity extends AppCompatActivity implements
 //        if (i == R.id.button_facebook_signout) {
 //            signOut();
 //        }
+    }
+
+    private void addUser(){
+        {
+//            final ProgressDialog pd = new ProgressDialog(getApplicationContext());
+//            pd.setMessage("Loading...");
+//            pd.show();
+            Firebase.setAndroidContext(getApplicationContext());
+
+            String url = "https://spartanride-173019.firebaseio.com/users.json";
+
+            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+                @Override
+                public void onResponse(String s) {
+                    Firebase reference = new Firebase("https://spartanride-173019.firebaseio.com/users");
+
+                    if(s.equals("null")) {
+                        reference.child(firebaseUser).child("password").setValue("qwerty");
+                        UserDetails.username = firebaseUser;
+//                        Toast.makeText(getApplicationContext(), "registration successful", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        try {
+                            JSONObject obj = new JSONObject(s);
+                            if (!obj.has(firebaseUser)) {
+                                reference.child(firebaseUser).child("password").setValue("qwerty");
+                                UserDetails.username = firebaseUser;
+//                                Toast.makeText(getApplicationContext(), "registration successful", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+//                    pd.dismiss();
+                }
+
+            },new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    System.out.println("" + volleyError );
+//                    pd.dismiss();
+                }
+            });
+
+            RequestQueue rQueue = Volley.newRequestQueue(getApplicationContext());
+            rQueue.add(request);
+        }
     }
 }

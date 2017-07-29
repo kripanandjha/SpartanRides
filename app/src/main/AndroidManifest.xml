@@ -41,6 +41,7 @@
         <activity android:name=".spartan_post" />
         <activity android:name=".SearchOrPost" />
         <activity android:name=".ThankYouPost" />
+        <activity android:name=".Chat" />
         <activity
             android:name=".HelpActivity"
             android:windowSoftInputMode="adjustResize" />
