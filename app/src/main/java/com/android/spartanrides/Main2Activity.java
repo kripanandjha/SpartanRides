@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +18,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,14 +27,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -46,23 +39,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 public class Main2Activity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authListner;
@@ -267,7 +256,22 @@ public class Main2Activity extends AppCompatActivity {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     TextView name = (TextView)rootView.findViewById(R.id.username);
                     TextView email = (TextView)rootView.findViewById(R.id.emailid);
-                    Button signout = (Button)rootView.findViewById(R.id.signoutButton);
+                    ImageView profilePic = (ImageView) rootView.findViewById(R.id.profilepic);
+                    name.setText(UserDetails.username);
+                    email.setText("EMAIL ID: "+UserDetails.emailID);
+                    Picasso.with(getContext()).load(UserDetails.photoURL).into(profilePic);
+                    String facebookUserId = "";
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    for(UserInfo profile : user.getProviderData()) {
+                        // check if the provider id matches "facebook.com"
+                        if(FacebookAuthProvider.PROVIDER_ID.equals(profile.getProviderId())) {
+                            facebookUserId = profile.getUid();
+                        }
+                    }
+
+                    String photoUrl = "https://graph.facebook.com/" + facebookUserId + "/picture?height=500";
+                    Picasso.with(getContext()).load(photoUrl).into(profilePic);
                     break;
                 }
                 case 4:
@@ -373,7 +377,7 @@ public class Main2Activity extends AppCompatActivity {
             HelpActivity helpActivity = new HelpActivity();
             try {
                 Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
-                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON("venkat", ratingBar, suggestionText),HELP_URL);
+                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON(UserDetails.username, ratingBar, suggestionText),HELP_URL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -381,6 +385,16 @@ public class Main2Activity extends AppCompatActivity {
         else
         {
             Snackbar.make(view, "Oops! Seems like you you forgot to rate us.", Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "Facebook");
+            return d;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

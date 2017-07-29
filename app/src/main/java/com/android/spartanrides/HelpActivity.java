@@ -11,6 +11,7 @@ import org.json.JSONObject;
  */
 
 public class HelpActivity extends AppCompatActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,7 @@ public class HelpActivity extends AppCompatActivity{
 
     public JSONObject convertToJSON(String userName, String rating, String suggestion) throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Activity", "Suggestions");
         jsonObject.put("Username", userName);
         jsonObject.put("Rating", rating);
         jsonObject.put("Suggestion", suggestion);

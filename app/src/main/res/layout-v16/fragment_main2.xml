@@ -13,31 +13,34 @@
 
     <ImageView
         android:id="@+id/profilepic"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
-        android:src="@drawable/spartanlogo"
-        android:contentDescription="@string/spartan_logo" />
+        android:contentDescription="@string/spartan_logo"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/emailid" />
+        <!--android:src="@drawable/spartanlogo"-->
+
 
     <TextView
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000FFF"
-        android:text="@string/name"
-        android:textColor="#FFFFFF"
         android:textColorHighlight="#64B5F6"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_above="@+id/emailid"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="center"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha="0.75"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"/>
 
     <TextView
         android:id="@+id/emailid"
@@ -51,7 +54,8 @@
         android:textStyle="bold"
         android:layout_above="@+id/medallions"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:alpha="0.75"/>
 
     <TextView
         android:id="@+id/medallions"
@@ -63,24 +67,25 @@
         android:textColorHighlight="#64B5F6"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_above="@+id/signoutButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/signoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#000FFF"
-        android:fontFamily="casual"
-        android:text="@string/signout_spartan"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
-        android:layout_marginBottom="52dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:alpha="0.75"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/signoutButton"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#000FFF"-->
+        <!--android:fontFamily="casual"-->
+        <!--android:text="@string/signout_spartan"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:textSize="24sp"-->
+        <!--android:textStyle="bold|italic"-->
+        <!--android:layout_marginBottom="52dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:alpha="0.75"/>-->
 
 </RelativeLayout>
