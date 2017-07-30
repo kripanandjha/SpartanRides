@@ -89,12 +89,12 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient2();
         setContentView(R.layout.activity_post);
 
-        ImageView v = (ImageView) findViewById(R.id.postLogo);
-        Bitmap blurredBitmap;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
-            v.setImageBitmap(blurredBitmap);
-        }
+        //ImageView v = (ImageView) findViewById(R.id.postLogo);
+        //Bitmap blurredBitmap;
+        //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+          //  blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
+          //  v.setImageBitmap(blurredBitmap);
+        //}
 
         sourceView = (EditText) findViewById(R.id.post_source);
         destView = (EditText) findViewById(R.id.post_destination);

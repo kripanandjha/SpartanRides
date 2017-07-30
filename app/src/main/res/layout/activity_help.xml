@@ -23,7 +23,7 @@
         android:paddingRight="9dp"
         android:maxLines="1"
         android:background="@drawable/write_text"
-        android:textColorHint="#a9a9a9"
+        android:textColorHint="#0D47A1"
         android:drawablePadding="9dp"
         android:textColor="@android:color/primary_text_light"
         android:alpha="0.75" />
@@ -44,6 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_help"
+        android:textStyle="bold"
+        android:textColor="#0D47A1"
         android:layout_marginTop="64dp"
         android:layout_below="@+id/suggestionText"
         android:layout_alignParentLeft="true"

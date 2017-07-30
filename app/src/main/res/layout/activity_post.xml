@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.android.spartanrides.Main2Activity$PlaceholderFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:id="@+id/postLogo"
-        android:layout_height="match_parent"
-        android:src="@drawable/spartanlogo"
-        android:scaleType="centerCrop"/>
 
     <!--Text View for Source-->
     <EditText
@@ -25,8 +19,8 @@
         android:paddingRight="9dp"
         android:maxLines="1"
         android:background="@drawable/write_text"
-        android:textColorHint="#a9a9a9"
         android:hint="@string/source"
+        android:textColorHint="#0D47A1"
         android:drawableLeft="@mipmap/ic_search_black_18dp"
         android:drawablePadding="9dp"
         android:textColor="@android:color/primary_text_light"
@@ -63,7 +57,7 @@
         android:maxLines="1"
         android:layout_below="@+id/post_source"
         android:background="@drawable/write_text"
-        android:textColorHint="#a9a9a9"
+        android:textColorHint="#0D47A1"
         android:hint="Provide Destination"
         android:drawableLeft="@mipmap/ic_search_black_18dp"
         android:drawablePadding="9dp"
@@ -117,7 +111,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="9dp"
             android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#a9a9a9"
+            android:textColorHint="#0D47A1"
             android:focusable="false"/>
 
         <ImageView
@@ -149,7 +143,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="9dp"
             android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#a9a9a9"
+            android:textColorHint="#0D47A1"
             android:focusable="false"/>
 
     <ImageView
@@ -173,10 +167,15 @@
         android:id="@+id/buttonLayout">
     <!--Button for Submission-->
     <Button
-        android:background="@drawable/button_selecter"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Post"
+        android:textColor="#0D47A1"
+        android:textColorHighlight="#64B5F6"
+        android:background="@drawable/button_selecter"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
         android:layout_below="@+id/post_time"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -185,13 +184,19 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5"
+        android:alpha="0.5"/>
 
     <Button
-        android:background="@drawable/button_selecter"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel"
+        android:textColor="#0D47A1"
+        android:textColorHighlight="#64B5F6"
+        android:background="@drawable/button_selecter"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textStyle="bold"
         android:layout_below="@+id/submit_post"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -200,7 +205,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5"
+        android:alpha="0.5"/>
     </LinearLayout>
 
     <ListView

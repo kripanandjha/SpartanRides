@@ -15,7 +15,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Post or search for carpool"
-        android:textColor="#000000"
+        android:textColor="#0D47A1"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -45,6 +45,7 @@
                 android:drawableTop="@drawable/ic_search_tab"
                 android:gravity="center"
                 android:text="SEARCH"
+                android:textColor="#0D47A1"
                 android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
@@ -70,6 +71,7 @@
                 android:drawableTop="@drawable/ic_post_tab"
                 android:gravity="center"
                 android:text="POST"
+                android:textColor="#0D47A1"
                 android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
