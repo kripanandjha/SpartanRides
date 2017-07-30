@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#54C0EB</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorAccent">#F8B64C</color>
     <color name="duskYellow">#C59146</color>
     <color name="lightGrey">#D3D3D3</color>
     <color name="goldenYellow">#FFDF00</color>
     <color name="metallicGold">#D4AF37</color>
+
+    <array name="array_dot_active">
+        <item>#44000000</item>
+        <item>#44000000</item>
+        <item>#44000000</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>#E6E6E6</item>
+        <item>#E6E6E6</item>
+        <item>#E6E6E6</item>
+    </array>
+
 </resources>

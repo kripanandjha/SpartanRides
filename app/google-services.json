@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "22792258416-ir2cs5e3bju5t3pfte88fr789pr7vkk0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.spartanrides",
+            "certificate_hash": "85197bd896b31021744c3103c6d60bdfa6db31a0"
+          }
+        },
+        {
           "client_id": "22792258416-u4u0c1n1tf00f53a4mpt4537a7q480lc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -56,6 +64,41 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22792258416:android:48acb3cb031696e3",
+        "android_client_info": {
+          "package_name": "com.example.android.testlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22792258416-8soa7r1aorra7hfh8bit4btl1n9mhp06.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "22792258416-7cghumt83seg2l730fk25racm5qn0u5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0set0U_QLx58RVbqPZ356u3glRCYdp3Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

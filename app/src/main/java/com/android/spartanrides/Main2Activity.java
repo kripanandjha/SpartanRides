@@ -1,5 +1,6 @@
 package com.android.spartanrides;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -24,15 +26,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,10 +52,13 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Main2Activity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authListner;
@@ -112,13 +118,13 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.chat);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ride);
-        tabLayout.getTabAt(2).setIcon(R.drawable.prf);
-        tabLayout.getTabAt(3).setIcon(R.drawable.help);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_chat_tab);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_car_tab);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_help_tab);
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -134,16 +140,34 @@ public class Main2Activity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        if(id== R.id.menu_sign_out)
-        {
-            FirebaseAuth.getInstance().signOut();
-            LoginManager.getInstance().logOut();
-            Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-            startActivity(intent);
+        if (id == R.id.action_profile) {
+            Dialog dialog = new Dialog(Main2Activity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.profile_popup);
+            CircleImageView imageView = (CircleImageView) dialog.findViewById(R.id.imageView);
+            imageView.setBorderColor(Color.parseColor("#ff3c5998"));
+            Picasso.with(this).load(UserDetails.photoURL).into(imageView);
+            TextView name = (TextView) dialog.findViewById(R.id.name);
+            name.setTextColor(Color.parseColor("#ff3c5998"));
+            name.setText(UserDetails.username);
+            TextView userEmail = (TextView) dialog.findViewById(R.id.userEmail);
+            TextView userName = (TextView) dialog.findViewById(R.id.userName);
+            userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_facebook, 0, 0, 0);
+            userEmail.setText(UserDetails.emailID);
+            Button signOut = (Button) dialog.findViewById(R.id.sign_out);
+            signOut.setBackgroundColor(Color.parseColor("#ff3c5998"));
+            signOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
+                    LoginManager.getInstance().logOut();
+                    Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            dialog.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -191,13 +215,12 @@ public class Main2Activity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_chat, container, false);
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER))
-            {
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1: {
                     rootView = inflater.inflate(R.layout.activity_users, container, false);
                     super.onCreate(savedInstanceState);
-                    usersList = (ListView)rootView.findViewById(R.id.usersList);
-                    noUsersText = (TextView)rootView.findViewById(R.id.noUsersText);
+                    usersList = (ListView) rootView.findViewById(R.id.usersList);
+                    noUsersText = (TextView) rootView.findViewById(R.id.noUsersText);
 
                     pd = new ProgressDialog(getContext());
                     pd.setMessage("Loading...");
@@ -205,12 +228,12 @@ public class Main2Activity extends AppCompatActivity {
 
                     String url = "https://spartanride-173019.firebaseio.com/users.json";
 
-                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
                             doOnSuccess(s);
                         }
-                    },new Response.ErrorListener(){
+                    }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             System.out.println("" + volleyError);
@@ -234,68 +257,26 @@ public class Main2Activity extends AppCompatActivity {
                     Post data acepting User Inputs
                     */
                     rootView = inflater.inflate(R.layout.search_or_post, container, false);
-                    TextView textView = rootView.findViewById(R.id.searchPostText);
-                    Typeface typeface;
-
-                    ImageView v =  rootView.findViewById(R.id.searchPostLogo);
-                    blur(v);
-
-                    try {
-                        typeface = Typeface.createFromAsset(container.getContext().getAssets(), "fonts/Pacifico.ttf");
-                        textView.setTypeface(typeface);
-                        textView.setTextColor(Color.parseColor("#000000"));
-                        textView.setTextSize(30);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
                     break;
                 }
-                case 3:
-                {
-                    rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                    TextView name = (TextView)rootView.findViewById(R.id.username);
-                    TextView email = (TextView)rootView.findViewById(R.id.emailid);
-                    ImageView profilePic = (ImageView) rootView.findViewById(R.id.profilepic);
-                    name.setText(UserDetails.username);
-                    email.setText("EMAIL ID: "+UserDetails.emailID);
-                    Picasso.with(getContext()).load(UserDetails.photoURL).into(profilePic);
-                    String facebookUserId = "";
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                    for(UserInfo profile : user.getProviderData()) {
-                        // check if the provider id matches "facebook.com"
-                        if(FacebookAuthProvider.PROVIDER_ID.equals(profile.getProviderId())) {
-                            facebookUserId = profile.getUid();
-                        }
-                    }
-
-                    String photoUrl = "https://graph.facebook.com/" + facebookUserId + "/picture?height=500";
-                    Picasso.with(getContext()).load(photoUrl).into(profilePic);
-                    break;
-                }
-                case 4:
-                {
+                case 3: {
                     rootView = inflater.inflate(R.layout.activity_help, container, false);
-                    ImageView v =  rootView.findViewById(R.id.helpLogo);
-                    blur(v);
                     break;
                 }
             }
             return rootView;
         }
 
-        private void blur(ImageView v)
-        {
+        private void blur(ImageView v) {
             Bitmap blurredBitmap = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                blurredBitmap = BlurBitmap.blur( getContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo) );
+                blurredBitmap = BlurBitmap.blur(getContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
                 v.setImageBitmap(blurredBitmap);
             }
         }
 
-        public void doOnSuccess(String s){
+        public void doOnSuccess(String s) {
             try {
                 JSONObject obj = new JSONObject(s);
 
@@ -303,10 +284,10 @@ public class Main2Activity extends AppCompatActivity {
                 String key = "";
                 al.clear();
 
-                while(i.hasNext()){
+                while (i.hasNext()) {
                     key = i.next().toString();
 
-                    if(!key.equals(UserDetails.username)) {
+                    if (!key.equals(UserDetails.username)) {
                         al.add(key);
                     }
 
@@ -317,11 +298,10 @@ public class Main2Activity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(totalUsers <=1){
+            if (totalUsers <= 1) {
                 noUsersText.setVisibility(View.VISIBLE);
                 usersList.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 noUsersText.setVisibility(View.GONE);
                 usersList.setVisibility(View.VISIBLE);
                 usersList.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, al));
@@ -352,39 +332,34 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 3;
         }
     }
 
-    public void doPost(View view)
-    {
+    public void doPost(View view) {
         Intent intent = new Intent(this, spartan_post.class);
         startActivity(intent);
     }
 
-    public void doSearch(View view)
-    {
+    public void doSearch(View view) {
         Intent intent = new Intent(this, PostsearchActivity.class);
         startActivity(intent);
     }
 
-    public void submitSuggestion(View view)
-    {
-        String ratingBar =  String.valueOf(((RatingBar)findViewById(R.id.ratingBar2)).getRating());
-        String suggestionText =  ((TextView)findViewById(R.id.suggestionText)).getText().toString();
-        InputMethodManager imm = (InputMethodManager)this.getSystemService(this.INPUT_METHOD_SERVICE);
+    public void submitSuggestion(View view) {
+        String ratingBar = String.valueOf(((RatingBar) findViewById(R.id.ratingBar2)).getRating());
+        String suggestionText = ((TextView) findViewById(R.id.suggestionText)).getText().toString();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         if (!ratingBar.equals("0.0")) {
             HelpActivity helpActivity = new HelpActivity();
             try {
                 Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
-                makeJsonObjReqSuggestions(helpActivity.convertToJSON(ratingBar, suggestionText));
+                new JSONActivity().JSONTransmitter(helpActivity.convertToJSON(UserDetails.username, ratingBar, suggestionText), HELP_URL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else
-        {
+        } else {
             Snackbar.make(view, "Oops! Seems like you you forgot to rate us.", Snackbar.LENGTH_SHORT).show();
         }
     }
@@ -397,35 +372,5 @@ public class Main2Activity extends AppCompatActivity {
         } catch (Exception e) {
             return null;
         }
-    }
-
-
-    private void makeJsonObjReqSuggestions(final String jsonData) {
-
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="https://spartanrides.me/suggestions.php";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // your response
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // error
-            }
-        }){
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                String your_string_json = jsonData; // put your json
-                return your_string_json.getBytes();
-            }
-        };
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-        queue.start();
     }
 }

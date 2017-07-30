@@ -1,24 +1,18 @@
 package com.android.spartanrides;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.spartanrides.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-
-import java.io.InputStream;
-import java.net.URL;
 
 public class user_info extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
 
@@ -58,7 +52,7 @@ public class user_info extends AppCompatActivity implements View.OnClickListener
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        Intent i = new Intent(user_info.this,MainActivity.class);
+                        Intent i = new Intent(user_info.this,LoginActivity.class);
                         startActivity(i);
                     }
                 }

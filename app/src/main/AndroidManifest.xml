@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WhiteTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,18 +38,26 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".user_info" />
-        <activity android:name=".spartan_chat" />
-        <activity android:name=".spartan_post" />
-        <activity android:name=".SearchOrPost" />
-        <activity android:name=".ThankYouPost" />
-        <activity android:name=".Chat" />
+        <activity android:name=".user_info"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".spartan_chat"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".spartan_post"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SearchOrPost"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ThankYouPost"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Chat"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".HelpActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- Autocomplete -->
         <meta-data
@@ -69,7 +79,8 @@
             android:authorities="com.facebook.app.FacebookContentProvider1854328631556764"
             android:exported="true" />
 
-        <activity android:name=".PostsearchActivity"></activity>
+        <activity android:name=".PostsearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

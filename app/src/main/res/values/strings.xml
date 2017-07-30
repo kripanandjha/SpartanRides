@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="button">Button</string>
-    <string name="button_help">Submit Rating</string>
+    <string name="button_help">SUBMIT</string>
     <string name="provide_suggestions">Provide Suggestions</string>
     <string name="spartan_logo">Spartan_logo</string>
     <string name="email_id">EMAIL_ID:</string>
