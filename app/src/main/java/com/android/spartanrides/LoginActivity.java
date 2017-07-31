@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile","publish_actions","user_about_me","user_friends","user_games_activity","user_hometown","user_likes","user_location","user_status");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -307,6 +308,11 @@ public class LoginActivity extends AppCompatActivity implements
             Log.d("LOGIN MSG", "Logged in Successfully");
             findViewById(R.id.login_button).setVisibility(View.GONE);
             updateUserInfo(user);
+            try {
+                sendUserInfo(convertToJSON());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             addUser();
             Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
             startActivity(intent);
@@ -382,5 +388,44 @@ public class LoginActivity extends AppCompatActivity implements
         UserDetails.emailID = user.getEmail();
         UserDetails.photoURL = user.getPhotoUrl().toString();
         UserDetails.accessToken = AccessToken.getCurrentAccessToken().getToken();
+    }
+
+    private JSONObject convertToJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Activity", "Login");
+        jsonObject.put("FBUserID", UserDetails.fbUserID);
+        jsonObject.put("AccessToken", UserDetails.accessToken);
+        JSONActivity.printJSON(jsonObject);
+        return jsonObject;
+    }
+
+    public void sendUserInfo(final JSONObject jsonData) {
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url ="https://spartanrides.me/login_info.php";
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // your response
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // error
+                }
+            }){
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    String your_string_json = jsonData.toString(); // put your json
+                    return your_string_json.getBytes();
+                }
+            };
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+            queue.start();
+
     }
 }

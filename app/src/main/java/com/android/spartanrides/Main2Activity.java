@@ -122,8 +122,7 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_chat_tab);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_car_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_help_tab);
-
-
+        mViewPager.setCurrentItem(1);
     }
 
     @Override
@@ -258,7 +257,6 @@ public class Main2Activity extends AppCompatActivity {
                     Post data acepting User Inputs
                     */
                     rootView = inflater.inflate(R.layout.search_or_post, container, false);
-
                     break;
                 }
                 case 3: {
@@ -268,6 +266,7 @@ public class Main2Activity extends AppCompatActivity {
             }
             return rootView;
         }
+
 
         private void blur(ImageView v) {
             Bitmap blurredBitmap = null;
