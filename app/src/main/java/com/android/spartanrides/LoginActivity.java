@@ -94,7 +94,9 @@ public class LoginActivity extends AppCompatActivity implements
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile","publish_actions","user_about_me","user_friends","user_games_activity","user_hometown","user_likes","user_location","user_status");
+        loginButton.setReadPermissions("email", "public_profile", "user_about_me","user_friends",
+                "user_games_activity","user_hometown","user_likes","user_location","user_status");
+//        loginButton.setPublishPermissions("publish_actions");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -426,6 +428,5 @@ public class LoginActivity extends AppCompatActivity implements
             // Add the request to the RequestQueue.
             queue.add(stringRequest);
             queue.start();
-
     }
 }
