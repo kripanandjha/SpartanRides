@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +70,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
     private LinearLayoutManager mLinearLayoutManager,mLinearLayoutManager2;
     private PlacesAutoCompleteAdapter mAutoCompleteAdapter, mAutoCompleteAdapter2;
     private CharSequence textData = "";
+    private TextInputLayout mAutocompleteHideDest;
 
     ImageView delete, delete2;
     Button submit, cancel;
@@ -89,12 +91,12 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         buildGoogleApiClient2();
         setContentView(R.layout.activity_post);
 
-        //ImageView v = (ImageView) findViewById(R.id.postLogo);
-        //Bitmap blurredBitmap;
-        //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-          //  blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
-          //  v.setImageBitmap(blurredBitmap);
-        //}
+//        ImageView v = (ImageView) findViewById(R.id.postLogo);
+//        Bitmap blurredBitmap;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            blurredBitmap = BlurBitmap.blur( getApplicationContext(), BitmapFactory.decodeResource(getResources(), R.drawable.spartanlogo));
+//            v.setImageBitmap(blurredBitmap);
+//        }
 
         sourceView = (EditText) findViewById(R.id.post_source);
         destView = (EditText) findViewById(R.id.post_destination);
@@ -104,6 +106,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         timeView = (EditText) findViewById(R.id.post_time);
         delete = (ImageView)findViewById(R.id.cross_post);
         delete2 = (ImageView)findViewById(R.id.cross_dest);
+        mAutocompleteHideDest = (TextInputLayout) findViewById(R.id.m_dest);
 
 
         /* Set onClick Listeners various events in PostActivity*/
@@ -152,6 +155,14 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             public void afterTextChanged(Editable s) {
 
                 mRecyclerView.setVisibility(View.VISIBLE);
+                if(mAutocompleteHideDest.getVisibility() == View.VISIBLE)
+                {
+                    mAutocompleteHideDest.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    mAutocompleteHideDest.setVisibility(View.INVISIBLE);
+                }
                 sourceView.requestFocus();
             }
         });
@@ -176,6 +187,7 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
             public void afterTextChanged(Editable s) {
 
                 mRecyclerView2.setVisibility(View.VISIBLE);
+                mAutocompleteHideDest.setVisibility(View.VISIBLE);
                 destView.requestFocus();
             }
         });
@@ -454,9 +466,13 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
 
         if(v==delete && v.getId()==R.id.cross_post && !mAutocompleteViewSource.getText().toString().equals("")){
             mAutocompleteViewSource.setText("");
+            sourceVal = mAutocompleteViewSource.getText().toString();
+            showAllBoxes();
         }
         if(v==delete2 && v.getId()==R.id.cross_dest && !mAutocompleteViewDest.getText().toString().equals("")){
             mAutocompleteViewDest.setText("");
+            destVal = mAutocompleteViewDest.getText().toString();
+            showAllBoxes();
         }
 
         if(v==cancel)

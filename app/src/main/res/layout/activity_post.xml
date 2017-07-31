@@ -8,211 +8,175 @@
 
 
     <!--Text View for Source-->
-    <EditText
-        android:id="@+id/post_source"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/m_post"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="9dp"
-        android:maxLines="1"
-        android:background="@drawable/write_text"
-        android:hint="@string/source"
-        android:textColorHint="#0D47A1"
-        android:drawableLeft="@mipmap/ic_search_black_18dp"
-        android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light"
-        android:alpha="0.75"/>
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/post_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="SOURCE"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <ImageView
         android:id="@+id/cross_post"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="26dp"
         android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_clear_black_18dp"/>
+        android:layout_marginTop="26dp"
+        android:src="@mipmap/ic_clear_black_18dp" />
 
     <!--Recycler View for Source-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:scrollbars="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/post_source"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/m_post"
+        android:scrollbars="vertical" />
 
     <!--Text View for Destination-->
-    <EditText
-        android:id="@+id/post_destination"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/m_dest"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="9dp"
-        android:maxLines="1"
-        android:layout_below="@+id/post_source"
-        android:background="@drawable/write_text"
-        android:textColorHint="#0D47A1"
-        android:hint="Provide Destination"
-        android:drawableLeft="@mipmap/ic_search_black_18dp"
-        android:drawablePadding="9dp"
-        android:textColor="@android:color/primary_text_light"
-        android:alpha="0.75"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/m_post">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/post_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DESTINATION"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
 
     <ImageView
         android:id="@+id/cross_dest"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginTop="90dp"
-        android:src="@mipmap/ic_clear_black_18dp"
+        android:layout_alignEnd="@+id/cross_post"
         android:layout_alignLeft="@+id/cross_post"
-        android:layout_alignStart="@+id/cross_post"
         android:layout_alignRight="@+id/cross_post"
-        android:layout_alignEnd="@+id/cross_post" />
+        android:layout_alignStart="@+id/cross_post"
+        android:layout_marginTop="80dp"
+        android:src="@mipmap/ic_clear_black_18dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:scrollbars="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/post_destination"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/m_dest"
+        android:scrollbars="vertical" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/textLayout"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_below="@+id/post_destination"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/m_dest"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textLayout">
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-    <!--Text View for date-->
-        <EditText
-            android:id="@+id/post_date"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/post_destination"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.5"
-            android:alpha="0.75"
-            android:background="@drawable/small_text"
-            android:drawableLeft="@mipmap/ic_search_black_18dp"
-            android:drawablePadding="9dp"
-            android:hint="Provide Date"
-            android:inputType="datetime"
-            android:maxLines="1"
-            android:paddingLeft="8dp"
-            android:paddingRight="9dp"
-            android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#0D47A1"
-            android:focusable="false"/>
+        <!--Text View for date-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/m_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/post_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="DATE"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
 
         <ImageView
-        android:id="@+id/cross_date"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_clear_black_18dp"/>
+            android:id="@+id/cross_date"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="150dp"
+            android:src="@mipmap/ic_clear_black_18dp" />
 
-    <!--Text View for Time-->
-        <EditText
-            android:id="@+id/post_time"
-            android:layout_width="20dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/post_date"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="-35dp"
-            android:layout_weight="0.5"
-            android:alpha="0.75"
-            android:background="@drawable/small_text"
-            android:drawableLeft="@mipmap/ic_search_black_18dp"
-            android:drawablePadding="9dp"
-            android:hint="Provide Time"
-            android:inputType="datetime"
-            android:maxLines="1"
-            android:paddingLeft="8dp"
-            android:paddingRight="9dp"
-            android:textColor="@android:color/primary_text_light"
-            android:textColorHint="#0D47A1"
-            android:focusable="false"/>
+        <!--Text View for Time-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/m_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/cross_time"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="210dp"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_clear_black_18dp"/>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/post_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="TIME"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/cross_time"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="210dp"
+            android:src="@mipmap/ic_clear_black_18dp" />
     </LinearLayout>
 
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/buttonLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:weightSum="1"
         android:layout_below="@+id/textLayout"
-        android:id="@+id/buttonLayout">
-    <!--Button for Submission-->
-    <Button
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <!--Button for Submission-->
+        <Button
+            android:id="@+id/submit_post"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            android:background="#54C0EB"
+            android:onClick="onClick"
+            android:text="Post"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="#FFFFFF" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Post"
-        android:textColor="#0D47A1"
-        android:textColorHighlight="#64B5F6"
-        android:background="@drawable/button_selecter"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_below="@+id/post_time"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/submit_post"
-        android:onClick="onClick"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="0.5"
-        android:alpha="0.5"/>
-
-    <Button
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:textColor="#0D47A1"
-        android:textColorHighlight="#64B5F6"
-        android:background="@drawable/button_selecter"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_below="@+id/submit_post"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/cancel_post"
-        android:onClick="onClick"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="0.5"
-        android:alpha="0.5"/>
+        <Button
+            android:id="@+id/cancel_post"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            android:background="#54C0EB"
+            android:onClick="onClick"
+            android:text="Cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/buttonLayout" />
 </RelativeLayout>
