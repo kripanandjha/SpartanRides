@@ -354,7 +354,7 @@ public class Main2Activity extends AppCompatActivity {
         if (!ratingBar.equals("0.0")) {
             HelpActivity helpActivity = new HelpActivity();
             try {
-                Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(view, "Thank you for your feedback!", Snackbar.LENGTH_SHORT).show();
                 new JSONActivity().JSONTransmitter(helpActivity.convertToJSON(UserDetails.username, ratingBar, suggestionText), HELP_URL);
             } catch (JSONException e) {
                 e.printStackTrace();
