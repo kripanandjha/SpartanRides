@@ -18,14 +18,13 @@ public class HelpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chat);
     }
 
-    public JSONObject convertToJSON(String userName, String rating, String suggestion) throws JSONException {
+    public String convertToJSON(String rating, String suggestion) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Activity", "Suggestions");
-        jsonObject.put("Username", userName);
+        jsonObject.put("Username", UserDetails.username);
         jsonObject.put("Rating", rating);
         jsonObject.put("Suggestion", suggestion);
-        JSONActivity.printJSON(jsonObject);
-        return jsonObject;
+        return jsonObject.toString();
     }
 }
 
