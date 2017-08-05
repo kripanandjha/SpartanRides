@@ -386,7 +386,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void updateUserInfo(FirebaseUser user) {
         firebaseUser = user.getDisplayName();
         UserDetails.username = firebaseUser;
-        UserDetails.fbUserID = user.getUid();
+        UserDetails.fbUserID = AccessToken.getCurrentAccessToken().getUserId();
         UserDetails.emailID = user.getEmail();
         UserDetails.photoURL = user.getPhotoUrl().toString();
         UserDetails.accessToken = AccessToken.getCurrentAccessToken().getToken();
@@ -404,7 +404,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void sendUserInfo(final JSONObject jsonData) {
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="https://spartanrides.me/login_info.php";
+            String url ="https://spartanrides.me/auth.php";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

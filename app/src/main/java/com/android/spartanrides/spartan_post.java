@@ -331,8 +331,11 @@ public class spartan_post extends AppCompatActivity implements GoogleApiClient.C
         jsonObject.put("AccessToken", UserDetails.accessToken);
         jsonObject.put("Source", sourceLatLong);
         jsonObject.put("Destination", destLatLong);
+        jsonObject.put("SourceName", sourceVal);
+        jsonObject.put("DestinationName", destVal);
         jsonObject.put("Date", dateVal);
         jsonObject.put("Time", timeVal);
+        jsonObject.put("photoURL", UserDetails.photoURL);
         JSONActivity.printJSON(jsonObject);
         return jsonObject;
     }
