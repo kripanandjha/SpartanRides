@@ -16,6 +16,7 @@ public class JSONRequest {
     public static String[] dates;
     public static String[] times;
     public static String[] facebookID;
+    public static String[] photoURL;
 
     public static final String KEY_ID = "0";
     public static final String JSON_ARRAY = "post_data";
@@ -25,6 +26,7 @@ public class JSONRequest {
     public static final String DATE = "date";
     public static final String TIME = "time";
     public static final String FACEBOOKID = "FBID";
+    public static final String PHOTOURL = "ph_url";
 
 
     private JSONArray users = null;
@@ -48,6 +50,7 @@ public class JSONRequest {
             dates = new String[users.length()];
             times = new String[users.length()];
             facebookID = new String[users.length()];
+            photoURL = new String[users.length()];
 
             for(int i=0;i<users.length();i++){
                 JSONObject jo = users.getJSONObject(i);
@@ -58,6 +61,7 @@ public class JSONRequest {
                 dates[i] = jo.getString(DATE);
                 times[i] = jo.getString(TIME);
                 facebookID[i] = jo.getString(FACEBOOKID);
+                photoURL[i] = jo.getString(PHOTOURL);
             }
         } catch (JSONException e) {
             e.printStackTrace();

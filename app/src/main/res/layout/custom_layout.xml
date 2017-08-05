@@ -16,24 +16,40 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Name"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:layout_marginLeft="50dp"
         android:layout_marginStart="50dp"
         android:layout_toRightOf="@+id/imageView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/postSource"
+        android:background="@null"/>
 
     <EditText
         android:id="@+id/postSource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
-        android:textSize="25sp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/postName"
-        android:layout_alignRight="@+id/postName"
+        android:text="Source"
+        android:textSize="15sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/postName" />
+        android:layout_alignLeft="@+id/postName"
+        android:layout_alignStart="@+id/postName"
+        android:layout_above="@+id/postTime"
+        android:background="@null"/>
+    <EditText
+        android:id="@+id/postTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Time"
+        android:textSize="15sp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/postName"
+        android:layout_alignStart="@+id/postName"
+        android:background="@null"/>
+
 </RelativeLayout>

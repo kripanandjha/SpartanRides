@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,8 +35,6 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
     public ListView listView;
 
     int[] IMAGES = {R.drawable.prf,R.drawable.spartanlogo,R.drawable.a};
-    String[] from = {"firsS", "SecondS", "thirdS"};
-    String[] to = {"firsD", "SecondD", "thirdD"};
     public static final String JSON_URL = "https://spartanrides.me/getpost.php";
     Geocoder geocoder;
     private AdapterView.OnItemClickListener onItemClickListener;
@@ -85,7 +84,7 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
         Log.d("JSON Received", json);
         JSONRequest jsonRequest = new JSONRequest(json);
         jsonRequest.parseJSON();
-        final CustomAdapter cl = new CustomAdapter(JSONRequest.ids,JSONRequest.usernames,JSONRequest.sources,JSONRequest.destinations,JSONRequest.dates,JSONRequest.times, JSONRequest.facebookID);
+        final CustomAdapter cl = new CustomAdapter(JSONRequest.ids,JSONRequest.usernames,JSONRequest.sources,JSONRequest.destinations,JSONRequest.dates,JSONRequest.times, JSONRequest.facebookID, JSONRequest.photoURL);
         listView.setAdapter(cl);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,11 +93,22 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
                 Log.i("TEST", "Testing");
                 ObjectContainer item = (ObjectContainer)adapterView.getItemAtPosition(position);
                 listView.getSelectedItem();
-                ((ListView) adapterView).getItemAtPosition(position);
+//                ((ListView) adapterView).getItemAtPosition(position);
                 String url = "https://www.facebook.com/" + item.facebookID;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("TEST", "Testing");
+                ObjectContainer item = (ObjectContainer)adapterView.getItemAtPosition(i);
+                listView.getSelectedItem();
+                UserDetails.chatWith = item.username;
+                startActivity(new Intent(getApplicationContext(), Chat.class));
+                return true;
             }
         });
     }
@@ -112,7 +122,7 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
                 sendRequest();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }, 5000);
+        }, 2000);
     }
 
     class ObjectContainer
@@ -121,12 +131,14 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
         String source;
         String destination;
         String facebookID;
-        public ObjectContainer (String username, String source, String destination, String facebookID)
+        String photoURL;
+        public ObjectContainer (String username, String source, String destination, String facebookID, String photoURL)
         {
             this.username = username;
             this.source = source;
             this.destination = destination;
             this.facebookID = facebookID;
+            this.photoURL = photoURL;
         }
     }
 
@@ -139,8 +151,9 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
         private String[] dates;
         private String[] times;
         private String[] facebookIDs;
+        private String[] photoURLs;
 
-        public CustomAdapter(String[] ids, String[] usernames, String[] sources, String[] destinations, String[] dates, String[] times, String[] facebookIDs){
+        public CustomAdapter(String[] ids, String[] usernames, String[] sources, String[] destinations, String[] dates, String[] times, String[] facebookIDs, String[] photoURLs){
             this.ids = ids;
             this.usernames = usernames;
             this.sources = sources;
@@ -148,16 +161,17 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             this.dates = dates;
             this.times = times;
             this.facebookIDs = facebookIDs;
+            this.photoURLs = photoURLs;
         }
 
         @Override
         public int getCount() {
-            return IMAGES.length;
+            return ids.length;
         }
 
         @Override
         public Object getItem(int i) {
-            ObjectContainer objectContainer = new ObjectContainer(usernames[i],sources[i],destinations[i],facebookIDs[i]);
+            ObjectContainer objectContainer = new ObjectContainer(usernames[i],sources[i],destinations[i],facebookIDs[i],photoURLs[i]);
             return objectContainer;
         }
 
@@ -172,6 +186,7 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             ImageView imageView = view.findViewById(R.id.imageView);
             TextView name = view.findViewById(R.id.postName);
             TextView source = view.findViewById(R.id.postSource);
+            TextView timeView = view.findViewById(R.id.postTime);
 
             name.setFocusable(false);
             name.setClickable(false);
@@ -181,10 +196,16 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             source.setClickable(false);
             source.setCursorVisible(false);
 
-            imageView.setImageResource(IMAGES[i]);
-            name.setText(usernames[i]);
+            timeView.setFocusable(false);
+            timeView.setClickable(false);
+            timeView.setCursorVisible(false);
+
+            if(!photoURLs[i].equals(""))
+            Picasso.with((PostsearchActivity.this).getApplicationContext()).load(photoURLs[i]).into(imageView);
+            name.setText(usernames[i]+" will be driving from");
             if(null!=sources[i] && null!=destinations[i])
             source.setText(getLocation(sources[i])+" to "+getLocation(destinations[i]));
+            timeView.setText(" on "+dates[i]+" at "+times[i]);
             return view;
         }
 
@@ -202,6 +223,5 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             }
             return address;
         }
-
     }
 }

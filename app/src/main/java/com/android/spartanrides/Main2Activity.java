@@ -83,6 +83,7 @@ public class Main2Activity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private GoogleApiClient googleApiClient;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,7 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_chat_tab);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_car_tab);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_help_tab);
+        intent = getIntent();
         mViewPager.setCurrentItem(1);
     }
 
