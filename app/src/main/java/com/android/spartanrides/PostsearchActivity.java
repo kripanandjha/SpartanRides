@@ -1,6 +1,7 @@
 package com.android.spartanrides;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Handler;
@@ -23,15 +24,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.widget.PullRefreshLayout;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostsearchActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener  {
 
-    public SwipeRefreshLayout swipeRefreshLayout;
+    public PullRefreshLayout swipeRefreshLayout;
     public ListView listView;
 
     int[] IMAGES = {R.drawable.prf,R.drawable.spartanlogo,R.drawable.a};
@@ -45,8 +49,20 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linear_layout);
         listView = (ListView) findViewById(R.id.travellersList);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        swipeRefreshLayout.setOnRefreshListener(this);
+//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendRequest();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
         geocoder= new Geocoder(getApplicationContext());
         sendRequest();
     }
@@ -183,7 +199,8 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.custom_layout,null);
-            ImageView imageView = view.findViewById(R.id.imageView);
+//            ImageView imageView = view.findViewById(R.id.imageView);
+            CircleImageView circleImageView = (CircleImageView) view.findViewById(R.id.imageView);
             TextView name = view.findViewById(R.id.postName);
             TextView source = view.findViewById(R.id.postSource);
             TextView timeView = view.findViewById(R.id.postTime);
@@ -199,9 +216,13 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             timeView.setFocusable(false);
             timeView.setClickable(false);
             timeView.setCursorVisible(false);
-
-            if(!photoURLs[i].equals(""))
-            Picasso.with((PostsearchActivity.this).getApplicationContext()).load(photoURLs[i]).into(imageView);
+            circleImageView.setBorderColor(Color.parseColor("#b2b2ff"));
+            if(!photoURLs[i].equals("")){
+                Picasso.with((PostsearchActivity.this).getApplicationContext()).load(photoURLs[i]).into(circleImageView);
+            }
+            else{
+                Picasso.with((PostsearchActivity.this).getApplicationContext()).load(R.drawable.ic_face_black_24dp).into(circleImageView);
+            }
             name.setText(usernames[i]+" will be driving from");
             if(null!=sources[i] && null!=destinations[i])
             source.setText(getLocation(sources[i])+" to "+getLocation(destinations[i]));

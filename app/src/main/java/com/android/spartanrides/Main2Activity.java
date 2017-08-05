@@ -157,6 +157,7 @@ public class Main2Activity extends AppCompatActivity {
             TextView userName = (TextView) dialog.findViewById(R.id.userName);
             userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_facebook, 0, 0, 0);
             userEmail.setText(UserDetails.emailID);
+            userName.setText(UserDetails.username);
             Button signOut = (Button) dialog.findViewById(R.id.sign_out);
             signOut.setBackgroundColor(Color.parseColor("#ff3c5998"));
             signOut.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +216,7 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_chat, container, false);
+            View rootView = null;
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1: {
@@ -268,7 +269,6 @@ public class Main2Activity extends AppCompatActivity {
             }
             return rootView;
         }
-
 
         private void blur(ImageView v) {
             Bitmap blurredBitmap = null;

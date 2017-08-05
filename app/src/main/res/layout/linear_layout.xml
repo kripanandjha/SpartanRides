@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_container"
+
+
+<com.baoyz.widget.PullRefreshLayout android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:refreshType="water_drop"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -12,6 +15,6 @@
         android:id="@+id/travellersList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+</com.baoyz.widget.PullRefreshLayout>

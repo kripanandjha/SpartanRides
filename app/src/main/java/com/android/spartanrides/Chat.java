@@ -40,6 +40,9 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
+//        getActionBar().setTitle("Chatting with "+UserDetails.chatWith);
+        getSupportActionBar().setTitle("Chatting with "+UserDetails.chatWith);
+
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://spartanride-173019.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://spartanride-173019.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
