@@ -223,10 +223,19 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             else{
                 Picasso.with((PostsearchActivity.this).getApplicationContext()).load(R.drawable.ic_face_black_24dp).into(circleImageView);
             }
-            name.setText(usernames[i]+" will be driving from");
-            if(null!=sources[i] && null!=destinations[i])
-            source.setText(getLocation(sources[i])+" to "+getLocation(destinations[i]));
-            timeView.setText(" on "+dates[i]+" at "+times[i]);
+            name.setText(usernames[i]);
+            if(null!=sources[i] && null!=destinations[i]) {
+                String src = getLocation(sources[i]);
+                String dst = getLocation(destinations[i]);
+                String shortSrc = src;
+                String shortDst = dst;
+                if (src.contains(","))
+                    shortSrc = src.substring(0,src.indexOf(","));
+                if (dst.contains(","))
+                    shortDst = dst.substring(0,dst.indexOf(","));
+                source.setText((shortSrc) + " to " + (shortDst));
+            }
+            timeView.setText("on "+dates[i]+" at "+times[i]);
             return view;
         }
 

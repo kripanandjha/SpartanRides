@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements
         mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile", "user_about_me","user_friends",
-                "user_games_activity","user_hometown","user_likes","user_location","user_status");
+                "user_games_activity","user_hometown","user_likes","user_location","user_status","read_custom_friendlist");
 //        loginButton.setPublishPermissions("publish_actions");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
