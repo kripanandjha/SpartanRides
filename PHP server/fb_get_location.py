@@ -8,8 +8,7 @@ import MySQLdb
 import re
 import threading
 
-
-token = 'EAACEdEose0cBAJqIx8cNhECBEad4TmhdlY4ZBiQ77ZBApA0FgpA6CcJKIaqonK1foGfdHUF8Bj9SFn1YKXU2cBIZBFR9lkgiGWELgcv6lZCnyZAPnlLUcqnPzYiYTUi2XjYFhJbOiBjdrQbs3Pu5vhaJsJnWMIXaZBrocDKQc9QkottU1J7Cj1ZCicaXgbdae0ZD'
+token = 'EAACEdEose0cBABPvHNrNOBsayLM47lzZCZBMYNmP5lQmYUOxuKKmLlkEbK80UZAbDWUZBOtamCvBz6a1fRNVASjmXOweNU6jRbRDRATM1SGRNBps2ySM4cwbMU0kEfst9N41YEbZB1kyv3adtm9xB9LU19p3VmmZCBIOkRa9o27GEsJa9BMvAQp4gQsxOnJo8ZD'
 
 graph = facebook.GraphAPI(token)
 
@@ -55,10 +54,11 @@ user_data = np.loadtxt(user_file, dtype=str)
 
 #execute mysql query to fetch fb user id after the current date
 #select FBID  from post1 where date <= curdate();
-conn = MySQLdb.connect("localhost", "root", "#B@rahmanand1", "spartans")
+conn = MySQLdb.connect("localhost", "spartanrides", "Spartan@SJSU2017", "spartans")
 c = conn.cursor()
-c.execute("select FBID  from post1 where date <= curdate()")
+c.execute("select FBID from post1 where date <= curdate()")
 row = c.fetchall()
+conn.close()
 st = str(row)
 st = st.replace("(", " ")
 st = st.replace(")", " ")
