@@ -7,7 +7,16 @@
         android:id="@+id/imageView"
         android:layout_width="60dip"
         android:layout_height="60dip"
+<<<<<<< HEAD
+<<<<<<< HEAD
+        app:civ_border_color="#54C0EB"
+        app:civ_border_width="3.0dip" />
+=======
         app:civ_border_width="3.0dip"/>
+>>>>>>> 2ae51885090335f0f3b571daa6a722e12206ec2e
+=======
+        app:civ_border_width="3.0dip"/>
+>>>>>>> 2ae51885090335f0f3b571daa6a722e12206ec2e
 
     <EditText
         android:id="@+id/postName"
@@ -19,6 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/postSource"
+        android:paddingLeft="2dp"
         android:background="@null"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView" />
@@ -33,6 +43,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/postTime"
+        android:paddingLeft="2dp"
         android:background="@null"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView" />
@@ -47,6 +58,7 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:paddingLeft="2dp"
         android:background="@null"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView" />

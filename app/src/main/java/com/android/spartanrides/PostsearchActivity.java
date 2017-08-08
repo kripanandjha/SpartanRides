@@ -216,7 +216,7 @@ public class PostsearchActivity extends AppCompatActivity implements SwipeRefres
             timeView.setFocusable(false);
             timeView.setClickable(false);
             timeView.setCursorVisible(false);
-            circleImageView.setBorderColor(Color.parseColor("#b2b2ff"));
+            circleImageView.setBorderColor(Color.parseColor("#54C0EB"));
             if(!photoURLs[i].equals("")){
                 Picasso.with((PostsearchActivity.this).getApplicationContext()).load(photoURLs[i]).into(circleImageView);
             }
