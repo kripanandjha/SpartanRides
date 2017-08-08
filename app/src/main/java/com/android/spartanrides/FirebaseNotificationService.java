@@ -127,6 +127,8 @@ public class FirebaseNotificationService extends Service {
                     ))
                     .setAutoCancel(true);
 
+            UserDetails.chatWith = notification.getMessage().substring(0,notification.getMessage().indexOf(':'));
+
             Intent backIntent = new Intent(context, Chat.class);
             backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -161,6 +163,4 @@ public class FirebaseNotificationService extends Service {
                 .child("status")
                 .setValue(1);
     }
-
-
 }

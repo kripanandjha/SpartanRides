@@ -111,6 +111,18 @@ public class Chat extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        UserDetails.chatWith = "";
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        UserDetails.chatWith = "";
+        super.onUserLeaveHint();
+    }
+
     private void setUpAuthListener() {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
