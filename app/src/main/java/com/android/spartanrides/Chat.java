@@ -1,7 +1,10 @@
 package com.android.spartanrides;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,8 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +33,8 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +46,16 @@ public class Chat extends AppCompatActivity {
         sendButton = (ImageView)findViewById(R.id.sendButton);
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
+        mAuth = FirebaseAuth.getInstance();
 
 //        getActionBar().setTitle("Chatting with "+UserDetails.chatWith);
-        getSupportActionBar().setTitle("Chatting with "+UserDetails.chatWith);
+        getSupportActionBar().setTitle(UserDetails.chatWith);
 
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://spartanride-173019.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://spartanride-173019.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
 
+        setUpAuthListener();
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,8 +69,10 @@ public class Chat extends AppCompatActivity {
                     reference2.push().setValue(map);
                     messageArea.setText("");
                 }
+                sendNotificationToUser(UserDetails.chatWithUID, messageText.substring(0, Math.min(messageText.length(), 10))+"...");
             }
         });
+
 
         reference1.addChildEventListener(new ChildEventListener() {
             @Override
@@ -98,6 +109,26 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setUpAuthListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+            }
+        };
+    }
+
+    private void sendNotificationToUser(String chatWithUserID, String message) {
+        if(!chatWithUserID.equals(mAuth.getCurrentUser().getUid())){
+            Utilities.sendNotification(this,
+                    chatWithUserID,
+                    mAuth.getCurrentUser().getDisplayName()+": "+message,
+                    "SpartanRide Message",
+                    "new_notification"
+            );
+        }
     }
 
     public void addMessageBox(String message, int type){

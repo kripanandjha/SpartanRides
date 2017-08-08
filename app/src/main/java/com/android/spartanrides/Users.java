@@ -27,6 +27,7 @@ public class Users extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
     ArrayList<String> al = new ArrayList<>();
+    ArrayList<String> uID = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
 
@@ -63,6 +64,7 @@ public class Users extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
+                UserDetails.chatWith = uID.get(position);
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
@@ -73,13 +75,19 @@ public class Users extends AppCompatActivity {
             JSONObject obj = new JSONObject(s);
 
             Iterator i = obj.keys();
+            Object object;
             String key = "";
+            String value = "";
 
             while(i.hasNext()){
-                key = i.next().toString();
+                  object = i.next();
+                key = object.toString();
+                value = obj.getJSONObject(key).getString("password");
+//                key = i.next().toString();
 
                 if(!key.equals(UserDetails.username)) {
                     al.add(key);
+                    uID.add(value);
                 }
 
                 totalUsers++;

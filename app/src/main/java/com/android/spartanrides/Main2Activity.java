@@ -125,6 +125,7 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_help_tab);
         intent = getIntent();
         mViewPager.setCurrentItem(1);
+        startService(new Intent(this, FirebaseNotificationService.class));
     }
 
     @Override
@@ -192,6 +193,7 @@ public class Main2Activity extends AppCompatActivity {
         ListView usersList;
         TextView noUsersText;
         ArrayList<String> al = new ArrayList<>();
+        ArrayList<String> uID = new ArrayList<>();
         int totalUsers = 0;
         ProgressDialog pd;
 
@@ -250,6 +252,7 @@ public class Main2Activity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             UserDetails.chatWith = al.get(position);
+                            UserDetails.chatWithUID = uID.get(position);
                             startActivity(new Intent(getContext(), Chat.class));
                         }
                     });
@@ -284,15 +287,18 @@ public class Main2Activity extends AppCompatActivity {
 
                 Iterator i = obj.keys();
                 String key = "";
+                String value = "";
                 al.clear();
 
                 while (i.hasNext()) {
-                    key = i.next().toString();
+                    Object object = i.next();
+                    key = object.toString();
+                    value = obj.getJSONObject(object.toString()).getString("password");
 
                     if (!key.equals(UserDetails.username)) {
                         al.add(key);
+                        uID.add(value);
                     }
-
                     totalUsers++;
                 }
 

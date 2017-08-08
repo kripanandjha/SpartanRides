@@ -351,14 +351,16 @@ public class LoginActivity extends AppCompatActivity implements
                     Firebase reference = new Firebase("https://spartanride-173019.firebaseio.com/users");
 
                     if (s.equals("null")) {
-                        reference.child(firebaseUser).child("password").setValue("qwerty");
+                        reference.child(firebaseUser).child("password").setValue(mAuth.getCurrentUser().getUid());
+//                        reference.child(firebaseUser).child("UID").setValue(mAuth.getCurrentUser().getUid());
                         UserDetails.username = firebaseUser;
 //                        Toast.makeText(getApplicationContext(), "registration successful", Toast.LENGTH_LONG).show();
                     } else {
                         try {
                             JSONObject obj = new JSONObject(s);
                             if (!obj.has(firebaseUser)) {
-                                reference.child(firebaseUser).child("password").setValue("qwerty");
+                                reference.child(firebaseUser).child("password").setValue(mAuth.getCurrentUser().getUid());
+//                                reference.child(firebaseUser).child("UID").setValue(mAuth.getCurrentUser().getUid());
                                 UserDetails.username = firebaseUser;
 //                                Toast.makeText(getApplicationContext(), "registration successful", Toast.LENGTH_LONG).show();
                             }
