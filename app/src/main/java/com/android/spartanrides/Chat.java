@@ -68,8 +68,8 @@ public class Chat extends AppCompatActivity {
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
+                    sendNotificationToUser(UserDetails.chatWithUID, messageText.substring(0, Math.min(messageText.length(), 10))+"...");
                 }
-                sendNotificationToUser(UserDetails.chatWithUID, messageText.substring(0, Math.min(messageText.length(), 10))+"...");
             }
         });
 
@@ -114,12 +114,14 @@ public class Chat extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         UserDetails.chatWith = "";
+        startService(new Intent(this, FirebaseNotificationService.class));
         super.onBackPressed();
     }
 
     @Override
     protected void onUserLeaveHint() {
         UserDetails.chatWith = "";
+        startService(new Intent(this, FirebaseNotificationService.class));
         super.onUserLeaveHint();
     }
 
