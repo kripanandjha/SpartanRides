@@ -8,7 +8,7 @@ $result = shell_exec('python /var/www/spartanrides.me/fb_get_location.py ');
 
 // Decode the result
 // This will contain: array('status' => 'Yes!')
-$connect = mysqli_connect("localhost", "spartanrides", "Spartan@SJSU2017", "spartans");
+$connect = mysqli_connect("localhost", "user", "password", "database");
 $res = "SELECT username, email, ph_url, FBID, source, destination, date, time  FROM post1 where FBID IN ('$result')";
 $res = mysqli_query($connect, $res);
 //$numrows = mysql_num_rows($res);
