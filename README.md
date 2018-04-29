@@ -2,8 +2,10 @@
 This is a Android Carpool Application that would help people add friends, post a ride, view ride requests and chat with people who post rides. The application makes use of Facebook APIs for logging in and displaying profile information. 
 The requests are served with the help of PHP server and MySQL database at the backend. The application makes use of Firebase Real time database for storing and receiving chat messages.  
 
-## Screenshots:
+## Watch our video here
+[![spartan rides cover](https://user-images.githubusercontent.com/26000626/39409152-077e5648-4bb0-11e8-8850-2f19815cf937.JPG)](https://www.youtube.com/watch?v=7eYSbQXGlEc)
 
+## Screenshots:
 ### Search and Post Rides
 <p align="center"><img  width="240" height="460" src="https://user-images.githubusercontent.com/26000626/39408954-6513968c-4bac-11e8-9fe6-3393c4fb8499.png"></p>
 
